@@ -57,6 +57,7 @@ class DreamInfoAdapter extends TypeAdapter<DreamInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DreamInfo(
+      (fields[8] as List)?.cast<String>(),
       dateCreated: fields[0] as DateTime,
       dateModified: fields[1] as DateTime,
       note: fields[2] as String,
@@ -71,7 +72,7 @@ class DreamInfoAdapter extends TypeAdapter<DreamInfo> {
   @override
   void write(BinaryWriter writer, DreamInfo obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.dateCreated)
       ..writeByte(1)
@@ -87,7 +88,9 @@ class DreamInfoAdapter extends TypeAdapter<DreamInfo> {
       ..writeByte(6)
       ..write(obj.isFavorite)
       ..writeByte(7)
-      ..write(obj.isArchive);
+      ..write(obj.isArchive)
+      ..writeByte(8)
+      ..write(obj.labels);
   }
 
   @override

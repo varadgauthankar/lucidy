@@ -42,7 +42,10 @@ class DreamInfo extends HiveObject {
   @HiveField(7)
   final bool isArchive;
 
-  DreamInfo(
+  @HiveField(8)
+  final List<String> labels;
+
+  DreamInfo(this.labels,
       {this.dateCreated,
       this.dateModified,
       this.note,
