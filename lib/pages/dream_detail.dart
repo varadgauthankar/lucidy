@@ -8,7 +8,6 @@ import 'package:dream_journal/widgets/delete_dream_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class DreamDetail extends StatefulWidget {
   final Dream dream;
