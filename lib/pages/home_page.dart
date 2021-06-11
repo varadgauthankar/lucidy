@@ -1,4 +1,3 @@
-import 'package:dream_journal/controllers/data_controller.dart';
 import 'package:dream_journal/controllers/dream_controller.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/widgets/dream_card.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dream_journal/pages/dream_detail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -31,14 +30,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dreams'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.brightness_5),
-            color: MyColors.white,
-            onPressed: () {},
-          )
-        ],
-        elevation: 4,
       ),
 
       body: Column(
@@ -60,8 +51,12 @@ class _HomePageState extends State<HomePage> {
                         oneTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  DreamDetail(dream: dream, isEdit: true)),
+                            builder: (context) => DreamDetail(
+                              dream: dream,
+                              isEdit: true,
+                              dreamKey: dream.key,
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -90,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         },
         elevation: 8,
         child: Icon(
-          Icons.add_rounded,
+          EvaIcons.plusOutline,
           color: MyColors.black,
         ),
       ),

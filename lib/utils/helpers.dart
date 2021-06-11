@@ -11,3 +11,7 @@ Color getOverLayColor(BuildContext context, Color color) {
 void snackBar(BuildContext context, {String content}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
 }
+
+Widget nothing() {
+  return SizedBox.shrink();
+}

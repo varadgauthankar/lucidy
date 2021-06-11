@@ -24,31 +24,11 @@ class _TabInfoState extends State<TabInfo> {
 
   TextEditingController noteController;
 
-  setData() {
-    var dataController = Provider.of<DataController>(context, listen: false);
-    var dreamData = widget.dreamInfo;
-    noteController.text = widget.dreamInfo.note;
-    dataController.setDate(dreamData.dateCreated);
-    dataController.setIsLucidDream(dreamData.isLucid);
-    dataController.setIsNightmare(dreamData.isNightMare);
-    dataController.setIsSleepParalysis(dreamData.isSleepParalysis);
-    dataController.setSelectedLabels(dreamData.labels);
-    //todo: fav and archive
-  }
-
   @override
   void initState() {
     noteController = TextEditingController();
 
-    //stupid workaround #1
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   if (widget.isEdit) setData();
-    // });
-
-    //stupid workaround #2
-    Future.delayed(Duration.zero, () async {
-      if (widget.isEdit) setData();
-    });
+    if (widget.isEdit) noteController.text = widget.dreamInfo.note;
 
     super.initState();
   }

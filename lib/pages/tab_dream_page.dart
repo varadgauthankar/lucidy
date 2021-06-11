@@ -8,42 +8,42 @@ class TabDream extends StatefulWidget {
   final String description;
   final bool isEdit;
 
-  const TabDream({Key key, this.title, this.description, this.isEdit})
-      : super(key: key);
+  const TabDream({
+    Key key,
+    this.title,
+    this.description,
+    this.isEdit,
+  }) : super(key: key);
 
   @override
   _TabDreamState createState() => _TabDreamState();
 }
 
-class _TabDreamState extends State<TabDream> {
+class _TabDreamState extends State<TabDream>
+    with AutomaticKeepAliveClientMixin<TabDream> {
+  //
+  //Keeping the sate alive, so forms can be validated on other screens.
+  @override
+  bool get wantKeepAlive => true;
+
   TextEditingController titleController;
   TextEditingController descriptionController;
-
-  // sets input to the value of the dream
-  setData() {
-    titleController.text = widget.title;
-    descriptionController.text = widget.description;
-  }
 
   @override
   void initState() {
     titleController = TextEditingController();
     descriptionController = TextEditingController();
-
-    if (widget.isEdit) setData();
-
+    //sets input firlds to their data
+    if (widget.isEdit) {
+      titleController.text = widget.title;
+      descriptionController.text = widget.description;
+    }
     super.initState();
   }
 
   @override
-  void dispose() {
-    titleController.dispose();
-    descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    super.build(context);
     DataController dataController =
         Provider.of<DataController>(context, listen: false);
     return ListView(
@@ -61,7 +61,10 @@ class _TabDreamState extends State<TabDream> {
                   labelText: "Title",
                   hintText: "Title",
                 ),
-                onChanged: (_) => dataController.setTitle(titleController.text),
+                onChanged: (_) {
+                  print('onChange Triggered');
+                  dataController.setTitle(titleController.text);
+                },
                 validator: (value) {
                   if (value.isEmpty)
                     return 'Please enter the title';

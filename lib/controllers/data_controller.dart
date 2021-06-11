@@ -5,7 +5,7 @@ class DataController extends ChangeNotifier {
   String title;
   String description;
   String note;
-  DreamInfo dreamInfo;
+  DreamInfo dreamInfo = DreamInfo();
   DateTime date = DateTime.now();
 
   bool isLucidDream = false;
@@ -60,6 +60,16 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsFavorite(bool value) {
+    this.isFavorite = value;
+    notifyListeners();
+  }
+
+  void setIsArchive(bool value) {
+    this.isArchive = value;
+    notifyListeners();
+  }
+
   void setAllLabels(List<String> list) {
     this.allLabels = list;
     notifyListeners();
@@ -76,7 +86,7 @@ class DataController extends ChangeNotifier {
   }
 
   Dream getDream() {
-    return Dream(
+    Dream dream = Dream(
       title: this.title,
       description: this.description,
       dreamInfo: DreamInfo(
@@ -90,13 +100,21 @@ class DataController extends ChangeNotifier {
         labels: this.selectedLabels,
       ),
     );
+    resetValues();
+    return dream;
   }
 
-  void setDream(Dream dream) {
-    this.title = dream.title;
-    this.description = dream.description;
-    this.dreamInfo = dream.dreamInfo;
-    notifyListeners();
+  Dream updatedDream(Dream dream) {
+    Dream _dream = Dream(
+      title: dream.title,
+      description: dream.description,
+      dreamInfo: dream.dreamInfo,
+    );
+
+    print('Dream Updated');
+    // print(dream.title);
+    resetValues();
+    return _dream;
   }
 
   void addLabel(String labelTitle) {
@@ -104,18 +122,17 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool validateForm() {
-    if (formKey.currentState.validate())
-      return true;
-    else
-      return false;
-  }
+  bool validateForm() => formKey.currentState.validate() ? true : false;
 
   void resetValues() {
-    this.dreamInfo = DreamInfo(
-      isLucid: false,
-      labels: [],
-    );
+    this.date = DateTime.now();
+    this.isLucidDream = false;
+    this.isNightmare = false;
+    this.isSleepParalysis = false;
+    this.selectedLabels = [];
+    this.title = '';
+    this.description = '';
+    this.note = '';
     notifyListeners();
   }
 
