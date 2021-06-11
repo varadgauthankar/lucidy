@@ -19,39 +19,37 @@ class Dream extends HiveObject {
 @HiveType(typeId: 1)
 class DreamInfo extends HiveObject {
   @HiveField(0)
-  final DateTime dateCreated;
-
-  @HiveField(1)
-  final DateTime dateModified;
-
-  @HiveField(2)
   final String note;
 
-  @HiveField(3)
+  @HiveField(1)
   final bool isLucid;
 
-  @HiveField(4)
-  final bool isNightmare;
+  @HiveField(2)
+  final bool isNightMare;
 
-  @HiveField(5)
+  @HiveField(3)
   final bool isSleepParalysis;
 
-  @HiveField(6)
+  @HiveField(4)
   final bool isFavorite;
 
-  @HiveField(7)
+  @HiveField(5)
   final bool isArchive;
 
-  @HiveField(8)
+  @HiveField(6)
   final List<String> labels;
 
-  DreamInfo(this.labels,
-      {this.dateCreated,
-      this.dateModified,
-      this.note,
-      this.isLucid,
-      this.isNightmare,
-      this.isSleepParalysis,
-      this.isFavorite,
-      this.isArchive});
+  @HiveField(7)
+  final DateTime dateCreated;
+
+  DreamInfo({
+    this.note,
+    this.isLucid,
+    this.isNightMare,
+    this.isSleepParalysis,
+    this.isFavorite,
+    this.isArchive,
+    this.labels,
+    this.dateCreated,
+  });
 }

@@ -57,40 +57,37 @@ class DreamInfoAdapter extends TypeAdapter<DreamInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DreamInfo(
-      (fields[8] as List)?.cast<String>(),
-      dateCreated: fields[0] as DateTime,
-      dateModified: fields[1] as DateTime,
-      note: fields[2] as String,
-      isLucid: fields[3] as bool,
-      isNightmare: fields[4] as bool,
-      isSleepParalysis: fields[5] as bool,
-      isFavorite: fields[6] as bool,
-      isArchive: fields[7] as bool,
+      note: fields[0] as String,
+      isLucid: fields[1] as bool,
+      isNightMare: fields[2] as bool,
+      isSleepParalysis: fields[3] as bool,
+      isFavorite: fields[4] as bool,
+      isArchive: fields[5] as bool,
+      labels: (fields[6] as List)?.cast<String>(),
+      dateCreated: fields[7] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, DreamInfo obj) {
     writer
-      ..writeByte(9)
-      ..writeByte(0)
-      ..write(obj.dateCreated)
-      ..writeByte(1)
-      ..write(obj.dateModified)
-      ..writeByte(2)
-      ..write(obj.note)
-      ..writeByte(3)
-      ..write(obj.isLucid)
-      ..writeByte(4)
-      ..write(obj.isNightmare)
-      ..writeByte(5)
-      ..write(obj.isSleepParalysis)
-      ..writeByte(6)
-      ..write(obj.isFavorite)
-      ..writeByte(7)
-      ..write(obj.isArchive)
       ..writeByte(8)
-      ..write(obj.labels);
+      ..writeByte(0)
+      ..write(obj.note)
+      ..writeByte(1)
+      ..write(obj.isLucid)
+      ..writeByte(2)
+      ..write(obj.isNightMare)
+      ..writeByte(3)
+      ..write(obj.isSleepParalysis)
+      ..writeByte(4)
+      ..write(obj.isFavorite)
+      ..writeByte(5)
+      ..write(obj.isArchive)
+      ..writeByte(6)
+      ..write(obj.labels)
+      ..writeByte(7)
+      ..write(obj.dateCreated);
   }
 
   @override

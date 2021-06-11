@@ -1,3 +1,4 @@
+import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/utils/text_style.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,10 @@ import 'package:flutter/material.dart';
 class DreamCard extends StatelessWidget {
   final Function oneTap;
   final String title;
-  final String subTitle;
+  final String description;
   final String date;
-  const DreamCard({Key key, this.oneTap, this.title, this.subTitle, this.date})
+  const DreamCard(
+      {Key key, this.oneTap, this.title, this.description, this.date})
       : super(key: key);
 
   @override
@@ -15,6 +17,10 @@ class DreamCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(6.0),
       child: Material(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? getOverLayColor(
+                context, MyColors.darkGrey) //get overlay color, material rules.
+            : MyColors.white,
         elevation: 3.0,
         borderRadius: BorderRadius.circular(8.0),
         child: InkWell(
@@ -41,7 +47,7 @@ class DreamCard extends StatelessWidget {
                 ),
                 spacer(height: 6.0, width: 0),
                 Text(
-                  subTitle,
+                  description,
                   style: Theme.of(context).brightness == Brightness.dark
                       ? CardSubTitle.dark
                       : CardSubTitle.light,

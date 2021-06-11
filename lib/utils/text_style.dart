@@ -55,3 +55,17 @@ class InfoCardTitle {
     fontWeight: FontWeight.w900,
   );
 }
+
+class InfoCardLeading {
+  static const light = TextStyle(
+    color: MyColors.lightGrey,
+    fontSize: 14,
+    fontWeight: FontWeight.w900,
+  );
+
+  static const dark = TextStyle(
+    color: MyColors.lightGrey,
+    fontSize: 14,
+    fontWeight: FontWeight.w900,
+  );
+}

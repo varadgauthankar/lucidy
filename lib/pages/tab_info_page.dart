@@ -1,33 +1,69 @@
+import 'package:dream_journal/controllers/data_controller.dart';
+import 'package:dream_journal/modals/dream.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/utils/date_picker.dart';
 import 'package:dream_journal/utils/helpers.dart';
+import 'package:dream_journal/utils/text_style.dart';
+import 'package:dream_journal/widgets/add_label_popup.dart';
 import 'package:dream_journal/widgets/tab_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TabInfo extends StatefulWidget {
-  const TabInfo({Key key}) : super(key: key);
+  final DreamInfo dreamInfo;
+  final bool isEdit;
 
+  const TabInfo({Key key, this.dreamInfo, this.isEdit}) : super(key: key);
   @override
   _TabInfoState createState() => _TabInfoState();
 }
 
 class _TabInfoState extends State<TabInfo> {
-  DateTime date = DateTime.now();
+  bool isThemeDark = false;
 
-  bool isLucidDream = false;
-  bool isNightmare = false;
-  bool isSleepParalysis = false;
+  TextEditingController noteController;
 
-  List<String> allLabels = ['Fun', 'Sad', 'Adventure', 'Horror'];
-  List<String> selectedLabels = [];
-  List<String> userCreatedLabels = [];
+  setData() {
+    var dataController = Provider.of<DataController>(context, listen: false);
+    var dreamData = widget.dreamInfo;
+    noteController.text = widget.dreamInfo.note;
+    dataController.setDate(dreamData.dateCreated);
+    dataController.setIsLucidDream(dreamData.isLucid);
+    dataController.setIsNightmare(dreamData.isNightMare);
+    dataController.setIsSleepParalysis(dreamData.isSleepParalysis);
+    dataController.setSelectedLabels(dreamData.labels);
+    //todo: fav and archive
+  }
 
-  final noteController = TextEditingController();
+  @override
+  void initState() {
+    noteController = TextEditingController();
 
+    //stupid workaround #1
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   if (widget.isEdit) setData();
+    // });
+
+    //stupid workaround #2
+    Future.delayed(Duration.zero, () async {
+      if (widget.isEdit) setData();
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    noteController.dispose();
+    super.dispose();
+  }
+
+  // build chips
   List<Widget> buildChips() {
+    DataController data = Provider.of<DataController>(context, listen: false);
     List<Widget> selection = [];
-    allLabels.forEach((label) {
+    data.allLabels.forEach((label) {
       selection.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: FilterChip(
@@ -36,12 +72,12 @@ class _TabInfoState extends State<TabInfo> {
           onSelected: (val) {
             setState(() {
               if (val)
-                selectedLabels.add(label);
+                data.selectedLabels.add(label);
               else
-                selectedLabels.remove(label);
+                data.selectedLabels.remove(label);
             });
           },
-          selected: selectedLabels.contains(label),
+          selected: data.selectedLabels.contains(label),
         ),
       ));
     });
@@ -50,81 +86,110 @@ class _TabInfoState extends State<TabInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(6.0),
-      children: [
-        //info card
-        TabInfoCard(
-          title: 'Info',
-          child: Column(
-            children: [
-              TextButton(
-                child: Row(
-                  children: [
-                    Icon(Icons.calendar_today_rounded),
-                    spacer(width: 6.0),
-                    Text(DateFormat('EEE, dd MMM yyyy').format(date)),
-                  ],
+    return Consumer<DataController>(
+      builder: (context, dataController, child) => ListView(
+        padding: EdgeInsets.all(6.0),
+        children: [
+          //info card
+          TabInfoCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Info',
+                  style: isThemeDark ? InfoCardTitle.dark : InfoCardTitle.light,
                 ),
-                onPressed: () => selectDate(context, date).then((pickedDate) {
-                  setState(() {
-                    this.date = pickedDate;
-                  });
-                }),
-              ),
+                spacer(height: 6.0),
 
-              Divider(),
+                TextButton(
+                  child: Row(
+                    children: [
+                      Icon(Icons.calendar_today_rounded),
+                      spacer(width: 6.0),
+                      Text(DateFormat('EEE, dd MMM yyyy')
+                          .format(dataController.date)),
+                    ],
+                  ),
+                  onPressed: () => selectDate(context, dataController.date)
+                      .then((pickedDate) {
+                    dataController.setDate(pickedDate);
+                  }),
+                ),
 
-              //checkbox lists
-              CheckboxListTile(
-                title: Text('Lucid Dream'),
-                value: isLucidDream,
-                onChanged: (value) {
-                  setState(() {
-                    this.isLucidDream = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Nightmare'),
-                value: isNightmare,
-                onChanged: (value) {
-                  setState(() {
-                    this.isNightmare = value;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text('Sleep Paralysis'),
-                value: isSleepParalysis,
-                onChanged: (value) {
-                  setState(() {
-                    this.isSleepParalysis = value;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-        TabInfoCard(
-          title: 'Labels',
-          child: Wrap(children: buildChips()),
-        ),
+                Divider(),
 
-        Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: TextFormField(
-            maxLines: null,
-            controller: noteController,
-            keyboardType: TextInputType.multiline,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Note",
-              hintText: "Note (optional)",
+                //checkbox lists
+                CheckboxListTile(
+                  title: Text('Lucid Dream'),
+                  value: dataController.isLucidDream,
+                  onChanged: (value) => dataController.setIsLucidDream(value),
+                ),
+                CheckboxListTile(
+                  title: Text('Nightmare'),
+                  value: dataController.isNightmare,
+                  onChanged: (value) => dataController.setIsNightmare(value),
+                ),
+                CheckboxListTile(
+                  title: Text('Sleep Paralysis'),
+                  value: dataController.isSleepParalysis,
+                  onChanged: (value) =>
+                      dataController.setIsSleepParalysis(value),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+          TabInfoCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Labels',
+                      style: isThemeDark
+                          ? InfoCardTitle.dark
+                          : InfoCardTitle.light,
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        '+ Label',
+                        style: isThemeDark
+                            ? InfoCardLeading.dark
+                            : InfoCardLeading.light,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AddLabelDialog());
+                      },
+                    )
+                  ],
+                ),
+                Wrap(children: buildChips()),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: TextFormField(
+              maxLines: null,
+              controller: noteController,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Note",
+                hintText: "Note (optional)",
+              ),
+              onChanged: (_) => dataController.setNote(noteController.text),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
