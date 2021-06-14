@@ -42,8 +42,9 @@ class _TabInfoState extends State<TabInfo> {
   // build chips
   List<Widget> buildChips() {
     DataController data = Provider.of<DataController>(context, listen: false);
+    // data.getLabels();
     List<Widget> selection = [];
-    data.allLabels.forEach((label) {
+    data.getLabels().forEach((label) {
       selection.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: FilterChip(
@@ -143,8 +144,9 @@ class _TabInfoState extends State<TabInfo> {
                       ),
                       onPressed: () {
                         showDialog(
-                            context: context,
-                            builder: (context) => AddLabelDialog());
+                          context: context,
+                          builder: (context) => AddLabelDialog(),
+                        );
                       },
                     )
                   ],

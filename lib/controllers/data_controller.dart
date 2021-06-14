@@ -1,3 +1,4 @@
+import 'package:dream_journal/controllers/dream_controller.dart';
 import 'package:dream_journal/modals/dream.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,7 +12,7 @@ class DataController extends ChangeNotifier {
   bool isLucidDream = false;
   bool isNightmare = false;
   bool isSleepParalysis = false;
-  List<String> allLabels = ['Fun', 'Scary', 'Love'];
+  List<String> allLabels = ['Fun', 'Scary', 'Love', 'Sad'];
   List<String> selectedLabels = [];
   List<String> userCreatedLabels = [];
 
@@ -110,17 +111,30 @@ class DataController extends ChangeNotifier {
       description: dream.description,
       dreamInfo: dream.dreamInfo,
     );
-
-    print('Dream Updated');
-    // print(dream.title);
     resetValues();
     return _dream;
   }
 
-  void addLabel(String labelTitle) {
-    this.allLabels.add(labelTitle);
+  void addLabel(String label) {
+    this.allLabels.add(label);
     notifyListeners();
+
+    LabelController labelController = LabelController();
+    labelController.insertLabels(this.allLabels);
   }
+
+  List<String> getLabels() {
+    LabelController labelController = LabelController();
+
+    List<String> labelsFromBox;
+    labelsFromBox = labelController.getLabels();
+    if (labelsFromBox == null)
+      return this.allLabels;
+    else
+      return labelsFromBox;
+  }
+
+  void setDefaultLabels() {}
 
   bool validateForm() => formKey.currentState.validate() ? true : false;
 
