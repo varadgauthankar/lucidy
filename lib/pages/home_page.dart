@@ -1,4 +1,4 @@
-import 'package:dream_journal/controllers/dream_controller.dart';
+import 'package:dream_journal/controllers/hive_controller.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/widgets/dream_card.dart';
 import 'package:flutter/foundation.dart';

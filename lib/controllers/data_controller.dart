@@ -1,4 +1,4 @@
-import 'package:dream_journal/controllers/dream_controller.dart';
+import 'package:dream_journal/controllers/hive_controller.dart';
 import 'package:dream_journal/modals/dream.dart';
 import 'package:flutter/cupertino.dart';
 

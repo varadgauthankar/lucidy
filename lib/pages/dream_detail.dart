@@ -1,5 +1,5 @@
 import 'package:dream_journal/controllers/data_controller.dart';
-import 'package:dream_journal/controllers/dream_controller.dart';
+import 'package:dream_journal/controllers/hive_controller.dart';
 import 'package:dream_journal/modals/dream.dart';
 import 'package:dream_journal/pages/tab_dream_page.dart';
 import 'package:dream_journal/pages/tab_info_page.dart';
