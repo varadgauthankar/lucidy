@@ -11,7 +11,6 @@ class AddLabelDialog extends StatefulWidget {
 
 class _AddLabelDialogState extends State<AddLabelDialog> {
   TextEditingController labelController;
-  GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -27,13 +26,15 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
 
   @override
   Widget build(BuildContext context) {
+    DataController dataController =
+        Provider.of<DataController>(context, listen: false);
     return AlertDialog(
       title: Text('Add Label'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Form(
-            key: key,
+            key: dataController.formKey2,
             child: TextFormField(
               maxLines: null,
               controller: labelController,
@@ -58,7 +59,7 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
         TextButton(
             child: Text('ADD'),
             onPressed: () {
-              if (key.currentState.validate()) {
+              if (dataController.validateForm(key: 'label')) {
                 Provider.of<DataController>(context, listen: false)
                     .addLabel(labelController.text);
                 Navigator.pop(context);

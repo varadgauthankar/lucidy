@@ -19,7 +19,11 @@ class DataController extends ChangeNotifier {
   bool isFavorite = false;
   bool isArchive = false;
 
+  //Key for dream details input
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  //key for label input
+  GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
   void setDate(DateTime date) {
     this.date = date;
@@ -136,7 +140,12 @@ class DataController extends ChangeNotifier {
 
   void setDefaultLabels() {}
 
-  bool validateForm() => formKey.currentState.validate() ? true : false;
+  bool validateForm({String key}) {
+    if (key == 'label')
+      return formKey2.currentState.validate() ? true : false;
+    else
+      return formKey.currentState.validate() ? true : false;
+  }
 
   void resetValues() {
     this.date = DateTime.now();
