@@ -9,7 +9,10 @@ Color getOverLayColor(BuildContext context, Color color) {
 }
 
 void snackBar(BuildContext context, {String content}) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(content),
+    duration: Duration(milliseconds: 500),
+  ));
 }
 
 Widget nothing() {

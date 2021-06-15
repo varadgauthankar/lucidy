@@ -14,7 +14,6 @@ class DataController extends ChangeNotifier {
   bool isSleepParalysis = false;
   List<String> allLabels = ['Fun', 'Scary', 'Love', 'Sad'];
   List<String> selectedLabels = [];
-  List<String> userCreatedLabels = [];
 
   bool isFavorite = false;
   bool isArchive = false;
@@ -68,6 +67,8 @@ class DataController extends ChangeNotifier {
   void setIsFavorite(bool value) {
     this.isFavorite = value;
     notifyListeners();
+    //! print
+    print('isFavorite from provider: $isFavorite');
   }
 
   void setIsArchive(bool value) {
@@ -82,11 +83,6 @@ class DataController extends ChangeNotifier {
 
   void setSelectedLabels(List<String> list) {
     this.selectedLabels = list;
-    notifyListeners();
-  }
-
-  void setUserCreatedLabels(List<String> list) {
-    this.userCreatedLabels = list;
     notifyListeners();
   }
 
@@ -138,8 +134,6 @@ class DataController extends ChangeNotifier {
       return labelsFromBox;
   }
 
-  void setDefaultLabels() {}
-
   bool validateForm({String key}) {
     if (key == 'label')
       return formKey2.currentState.validate() ? true : false;
@@ -173,7 +167,6 @@ class DataController extends ChangeNotifier {
     selectedLabels: $selectedLabels
 
     allLabels: $allLabels
-    userCreatedLabels: $userCreatedLabels
 
     isFavorite: $isFavorite
     isArchive: $isArchive

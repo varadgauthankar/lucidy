@@ -27,6 +27,9 @@ class _DreamDetailState extends State<DreamDetail>
   IconData fabIcon = EvaIcons.chevronRightOutline;
   DreamController dreamController;
 
+  bool isFavorite = false;
+  bool isArchive = false;
+
   void handleFab() {
     if (tabController.index == 0)
       setState(() {
@@ -53,11 +56,53 @@ class _DreamDetailState extends State<DreamDetail>
     dataController.setIsArchive(dream.dreamInfo.isArchive);
   }
 
+  void toggleFavorite() {
+    var dataController = Provider.of<DataController>(context, listen: false);
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    dataController.setIsFavorite(isFavorite);
+
+    snackBar(context,
+        content: isArchive ? 'Marked as favorite' : 'un-marked as favorite');
+
+    if (widget.dream != null)
+      DreamController()
+        ..updateDream(widget.dreamKey, dataController.getDream());
+  }
+
+  void toggleArchive() {
+    var dataController = Provider.of<DataController>(context, listen: false);
+    setState(() {
+      isArchive = !isArchive;
+    });
+    dataController.setIsArchive(isArchive);
+
+    snackBar(context,
+        content: isArchive ? 'Dream archived' : 'Dream unarchived');
+
+    if (widget.dream != null)
+      DreamController()
+        ..updateDream(widget.dreamKey, dataController.getDream());
+  }
+
+  setFavAndArcive() {
+    if (widget.dream != null) {
+      print('isFav: ${widget.dream.dreamInfo.isFavorite}');
+      print('isArc: ${widget.dream.dreamInfo.isArchive}');
+      isFavorite = widget.dream.dreamInfo.isFavorite;
+      isArchive = widget.dream.dreamInfo.isArchive;
+    }
+  }
+
   @override
   void initState() {
     tabController = TabController(vsync: this, length: 2);
     tabController.addListener(handleFab);
     dreamController = DreamController();
+
+    //set fav and archive value in edit mode
+    setFavAndArcive();
 
     Future.delayed(Duration.zero, () {
       if (widget.isEdit)
@@ -71,6 +116,8 @@ class _DreamDetailState extends State<DreamDetail>
 
   @override
   Widget build(BuildContext context) {
+    DataController dataController =
+        Provider.of<DataController>(context, listen: false);
     return Scaffold(
       body: DefaultTabController(
         initialIndex: 0,
@@ -81,14 +128,18 @@ class _DreamDetailState extends State<DreamDetail>
             actions: [
               IconButton(
                 tooltip: 'Mark as favorite',
-                icon: Icon(EvaIcons.starOutline),
-                onPressed: () {},
+                icon: Icon(
+                  isFavorite ? EvaIcons.star : EvaIcons.starOutline,
+                ),
+                onPressed: toggleFavorite,
               ),
               widget.isEdit
                   ? IconButton(
                       tooltip: 'Archive dream',
-                      icon: Icon(EvaIcons.archiveOutline),
-                      onPressed: () {},
+                      icon: Icon(
+                        isArchive ? EvaIcons.archive : EvaIcons.archiveOutline,
+                      ),
+                      onPressed: toggleArchive,
                     )
                   : nothing(),
               widget.isEdit
