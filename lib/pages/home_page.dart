@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                       return DreamCard(
                         title: dream.title,
                         description: dream.description,
-                        date: dream.dreamInfo.dateCreated.toString(),
+                        dreamInfo: dream.dreamInfo,
                         oneTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class CardTitle {
   static const light = TextStyle(
     color: MyColors.black,
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: FontWeight.w900,
   );
 
   static const dark = TextStyle(
     color: MyColors.white,
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: FontWeight.w900,
   );
 }
@@ -31,14 +31,32 @@ class CardSubTitle {
 class CardDate {
   static const light = TextStyle(
     color: MyColors.accentVarient,
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
+    height: 0,
   );
 
   static const dark = TextStyle(
     color: MyColors.accent,
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
+    height: 0,
+  );
+}
+
+class IsLucidLabelStyle {
+  static const light = TextStyle(
+    color: MyColors.darkGrey,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    height: 0,
+  );
+
+  static const dark = TextStyle(
+    color: MyColors.darkGrey,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    height: 0,
   );
 }
 
