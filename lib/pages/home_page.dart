@@ -1,5 +1,10 @@
 import 'package:dream_journal/controllers/hive_controller.dart';
+import 'package:dream_journal/pages/about_app_page.dart';
+import 'package:dream_journal/pages/settings_page.dart';
+import 'package:dream_journal/pages/statistics_page.dart';
+import 'package:dream_journal/pages/tools_page.dart';
 import 'package:dream_journal/utils/colors.dart';
+import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/widgets/dream_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +36,49 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Dreams'),
       ),
-
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              child: Text('Lucidy'),
+              decoration: BoxDecoration(color: MyColors.primary),
+            ),
+            ListTile(
+              leading: Icon(
+                EvaIcons.settings2Outline,
+                color: MyColors.black,
+              ),
+              title: Text('Settings'),
+              onTap: () => toPage(context, SettingsPage()),
+            ),
+            ListTile(
+              leading: Icon(
+                EvaIcons.optionsOutline,
+                color: MyColors.black,
+              ),
+              title: Text('Lucid dream tools'),
+              onTap: () => toPage(context, ToolsPage()),
+            ),
+            ListTile(
+              leading: Icon(
+                EvaIcons.pieChartOutline,
+                color: MyColors.black,
+              ),
+              title: Text('Statistics'),
+              onTap: () => toPage(context, StatisticsPage()),
+            ),
+            ListTile(
+              leading: Icon(
+                EvaIcons.infoOutline,
+                color: MyColors.black,
+              ),
+              title: Text('About app'),
+              onTap: () => toPage(context, AboutPage()),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           Expanded(

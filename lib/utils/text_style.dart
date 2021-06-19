@@ -83,3 +83,31 @@ class InfoCardLeading {
     fontWeight: FontWeight.w900,
   );
 }
+
+//Container card styles
+
+class ContainerCardTitle {
+  static const light = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: MyColors.accentVarient,
+  );
+  static const dark = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: MyColors.accent,
+  );
+}
+
+class ContainerCardSubTitle {
+  static const light = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: MyColors.black,
+  );
+  static const dark = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: MyColors.white,
+  );
+}

@@ -11,10 +11,13 @@ Color getOverLayColor(BuildContext context, Color color) {
 void snackBar(BuildContext context, {String content}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(content),
-    duration: Duration(milliseconds: 500),
   ));
 }
 
 Widget nothing() {
   return SizedBox.shrink();
+}
+
+void toPage(BuildContext context, Widget page) {
+  Navigator.push(context, MaterialPageRoute(builder: (contex) => page));
 }
