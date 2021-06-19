@@ -33,30 +33,26 @@ class CardDate {
     color: MyColors.accentVarient,
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    height: 0,
   );
 
   static const dark = TextStyle(
     color: MyColors.accent,
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    height: 0,
   );
 }
 
-class IsLucidLabelStyle {
+class cardLabel {
   static const light = TextStyle(
     color: MyColors.darkGrey,
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    height: 0,
   );
 
   static const dark = TextStyle(
     color: MyColors.darkGrey,
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    height: 0,
   );
 }
 

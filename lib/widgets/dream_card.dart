@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:dream_journal/modals/dream.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/utils/text_style.dart';
+import 'package:dream_journal/widgets/my_chip.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,17 +25,17 @@ class DreamCard extends StatelessWidget {
   List<Widget> buildLabels() {
     var chips = [
       {
-        'label': 'LUCID',
+        'label': 'Lucid',
         'value': dreamInfo.isLucid,
         'color': MyColors.blue,
       },
       {
-        'label': 'PARALYSIS',
+        'label': 'Paralysis',
         'value': dreamInfo.isSleepParalysis,
         'color': MyColors.redAlt,
       },
       {
-        'label': 'NIGHTMARE',
+        'label': 'Nightmare',
         'value': dreamInfo.isNightMare,
         'color': MyColors.indigo,
       },
@@ -45,20 +48,7 @@ class DreamCard extends StatelessWidget {
       Color color = item['color'];
       String label = item['label'];
 
-      if (value) {
-        trueChips.add(
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.0),
-            child: Chip(
-              label: Text(
-                label,
-                style: IsLucidLabelStyle.light,
-              ),
-              backgroundColor: color.withOpacity(0.2),
-            ),
-          ),
-        );
-      }
+      if (value) trueChips.add(MyChip(label: label, color: color));
     }
 
     return trueChips;
@@ -80,7 +70,7 @@ class DreamCard extends StatelessWidget {
           splashColor: Theme.of(context).accentColor,
           borderRadius: BorderRadius.circular(8.0),
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -89,6 +79,7 @@ class DreamCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
+                        //date
                         Text(
                           DateFormat('EEE, dd MMM')
                               .format(dreamInfo.dateCreated),
@@ -97,21 +88,22 @@ class DreamCard extends StatelessWidget {
                               : CardDate.light,
                         ),
                         spacer(width: 4.0),
+
+                        //fav Icon
                         dreamInfo.isFavorite
                             ? Icon(
                                 EvaIcons.star,
                                 color: MyColors.yellow,
-                                size: 20,
                               )
                             : nothing(),
                       ],
                     ),
-                    Row(
-                      children: buildLabels(),
-                    ),
+                    Wrap(children: buildLabels()),
                   ],
                 ),
+
                 spacer(height: 4.0),
+                //title
                 Text(
                   title,
                   style: Theme.of(context).brightness == Brightness.dark
@@ -120,6 +112,7 @@ class DreamCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
+                //description
                 Text(
                   description,
                   style: Theme.of(context).brightness == Brightness.dark
