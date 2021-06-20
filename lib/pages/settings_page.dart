@@ -1,13 +1,14 @@
 import 'package:dream_journal/controllers/hive_controller.dart';
+import 'package:dream_journal/controllers/theme_controller.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/utils/enums.dart';
 import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/utils/text_style.dart';
 import 'package:dream_journal/widgets/container_card.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key key}) : super(key: key);
@@ -18,6 +19,15 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsState extends State<SettingsPage> {
   AppTheme appTheme;
+
+  void toggleAppTheme(AppTheme appTheme) {
+    Provider.of<ThemeController>(context, listen: false)
+        .toggleAppTheme(appTheme);
+  }
+
+  void setChipValues() {
+    appTheme = Provider.of<ThemeController>(context, listen: false).appTheme;
+  }
 
   //dark mode chips
   List<Widget> buildDarkModeChips() {
@@ -32,7 +42,7 @@ class _SettingsState extends State<SettingsPage> {
           onSelected: (selected) {
             setState(() {
               appTheme = item;
-              // toggleAppTheme(appTheme);
+              toggleAppTheme(appTheme);
             });
           },
         ),
@@ -56,6 +66,12 @@ class _SettingsState extends State<SettingsPage> {
       ));
     });
     return choices;
+  }
+
+  @override
+  void initState() {
+    setChipValues();
+    super.initState();
   }
 
   @override

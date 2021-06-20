@@ -1,4 +1,5 @@
 import 'package:dream_journal/controllers/data_controller.dart';
+import 'package:dream_journal/controllers/theme_controller.dart';
 import 'package:dream_journal/modals/dream.dart';
 import 'package:dream_journal/pages/home_page.dart';
 import 'package:dream_journal/utils/colors.dart';
@@ -23,24 +24,29 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DataController()),
+        ChangeNotifierProvider(create: (_) => ThemeController()),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: MyColors.primary,
-          accentColor: MyColors.accent,
-          primarySwatch: Colors.deepPurple,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: MyColors.primary,
-          accentColor: MyColors.accent,
-          primarySwatch: Colors.deepPurple,
-          scaffoldBackgroundColor: MyColors.darkGrey,
-        ),
-        themeMode: ThemeMode.light,
-        home: HomePage(),
+      child: Consumer<ThemeController>(
+        builder: (context, themeController, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              brightness: Brightness.light,
+              primaryColor: MyColors.primary,
+              accentColor: MyColors.accent,
+              primarySwatch: Colors.deepPurple,
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primaryColor: MyColors.primary,
+              accentColor: MyColors.accent,
+              primarySwatch: Colors.deepPurple,
+              scaffoldBackgroundColor: MyColors.darkGrey,
+            ),
+            themeMode: themeController.themeModeFromEnum(),
+            home: HomePage(),
+          );
+        },
       ),
     );
   }
