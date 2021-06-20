@@ -1,11 +1,11 @@
+import 'package:dream_journal/utils/enums.dart';
 import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/utils/text_style.dart';
 import 'package:dream_journal/widgets/container_card.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-enum Frequency { one, two, four, six }
 
 class ToolsPage extends StatefulWidget {
   const ToolsPage({Key key}) : super(key: key);
@@ -32,13 +32,13 @@ class _ToolsPageState extends State<ToolsPage> {
 
   void handleMorningReminder(bool value) {
     setState(() {
-      isRealityCheck = value;
+      isMorningReminder = value;
     });
   }
 
   void handleBeforeBedReminder(bool value) {
     setState(() {
-      isRealityCheck = value;
+      isBeforeBedReminder = value;
     });
   }
 
@@ -106,7 +106,8 @@ class _ToolsPageState extends State<ToolsPage> {
                       constraints: BoxConstraints(), //removes big ass padding
                       onPressed: () => snackBar(
                         context,
-                        content: 'todo', //Todo: add descripotion here
+                        content:
+                            'Recieve a reality check notification throughout the day',
                       ),
                       icon: Icon(EvaIcons.questionMarkCircleOutline),
                     )
@@ -136,14 +137,67 @@ class _ToolsPageState extends State<ToolsPage> {
           ContainerCard(
             title: 'Morning Reminder',
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Reminder to log dreams just when you wake up'),
+                  value: isMorningReminder,
+                  onChanged: (value) => handleMorningReminder(value),
+                ),
+                Text(
+                  'Pick a time',
+                  style: ContainerCardSubTitle.light,
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(EvaIcons.clockOutline),
+                      spacer(width: 6.0),
+                      Text('9:00 am'),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          //before bed
+          ContainerCard(
+            title: 'Before bed Reminder',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                      'Recieve a notification to remind you to log dreams just when you wake up'),
-                  value: isRealityCheck,
-                  onChanged: (value) => handleRealityCheck(value),
+                      'Reminder to read morning dreams. an essensial way to make lucid dreams work'),
+                  value: isBeforeBedReminder,
+                  onChanged: (value) => handleBeforeBedReminder(value),
                 ),
+                Text(
+                  'Pick a time',
+                  style: ContainerCardSubTitle.light,
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(EvaIcons.clockOutline),
+                      spacer(width: 6.0),
+                      Text('9:00 am'),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

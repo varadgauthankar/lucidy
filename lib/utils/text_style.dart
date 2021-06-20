@@ -111,3 +111,73 @@ class ContainerCardSubTitle {
     color: MyColors.white,
   );
 }
+
+//buttons
+class MyButtonStyle {
+  static const danger = TextStyle(
+    color: MyColors.error,
+    fontWeight: FontWeight.w600,
+  );
+  static const primary = TextStyle(
+    color: MyColors.accentVarient,
+    fontWeight: FontWeight.w600,
+  );
+}
+
+//statistic card
+class StatisticsCardTitle {
+  static const light = TextStyle(
+    color: MyColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
+  );
+
+  static const dark = TextStyle(
+    color: MyColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
+  );
+}
+
+class StatisticsCardValue {
+  static const light = TextStyle(
+    color: MyColors.black,
+    fontWeight: FontWeight.w800,
+    fontSize: 30,
+  );
+
+  static const dark = TextStyle(
+    color: MyColors.black,
+    fontWeight: FontWeight.w800,
+    fontSize: 30,
+  );
+}
+
+//tile
+class TileTitle {
+  static const light = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w800,
+    color: MyColors.black,
+  );
+
+  static const dark = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w800,
+    color: MyColors.white,
+  );
+}
+
+class TileSubtitle {
+  static const light = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: MyColors.black,
+  );
+
+  static const dark = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: MyColors.white,
+  );
+}
