@@ -117,17 +117,26 @@ class DataController extends ChangeNotifier {
 
   void addLabel(String label) {
     this.allLabels.add(label);
-    notifyListeners();
 
     LabelController labelController = LabelController();
     labelController.insertLabels(this.allLabels);
+    notifyListeners();
+  }
+
+  void updateLabels(List<String> labels) {
+    this.allLabels = labels;
+
+    LabelController labelController = LabelController();
+    labelController.insertLabels(this.allLabels);
+    // notifyListeners();
   }
 
   List<String> getLabels() {
     LabelController labelController = LabelController();
-
     List<String> labelsFromBox;
     labelsFromBox = labelController.getLabels();
+    // notifyListeners();
+
     if (labelsFromBox == null)
       return this.allLabels;
     else

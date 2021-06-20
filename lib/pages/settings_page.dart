@@ -1,9 +1,11 @@
+import 'package:dream_journal/controllers/data_controller.dart';
 import 'package:dream_journal/controllers/hive_controller.dart';
 import 'package:dream_journal/controllers/theme_controller.dart';
 import 'package:dream_journal/utils/colors.dart';
 import 'package:dream_journal/utils/enums.dart';
 import 'package:dream_journal/utils/helpers.dart';
 import 'package:dream_journal/utils/text_style.dart';
+import 'package:dream_journal/widgets/add_label_popup.dart';
 import 'package:dream_journal/widgets/container_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsState extends State<SettingsPage> {
   AppTheme appTheme;
+  LabelController labelController = LabelController();
 
   void toggleAppTheme(AppTheme appTheme) {
     Provider.of<ThemeController>(context, listen: false)
@@ -33,8 +36,8 @@ class _SettingsState extends State<SettingsPage> {
   List<Widget> buildDarkModeChips() {
     List<Widget> choices = [];
     AppTheme.values.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
+      choices.add(Padding(
+        padding: const EdgeInsets.only(right: 8.0),
         child: ChoiceChip(
           label: Text(toBeginningOfSentenceCase(
               describeEnum(item))), //Enum to string, First letter capital
@@ -52,20 +55,25 @@ class _SettingsState extends State<SettingsPage> {
   }
 
   List<Widget> buildAllLabelsChip() {
-    LabelController labelController = LabelController();
-    var labelsFromBox = labelController.getLabels();
+    DataController data = Provider.of<DataController>(context, listen: false);
 
-    List<Widget> choices = [];
-    labelsFromBox.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
+    List<Widget> selection = [];
+    data.getLabels().forEach((label) {
+      selection.add(Padding(
+        padding: const EdgeInsets.all(4.0),
         child: Chip(
-          label: Text(item),
-          onDeleted: () {},
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          label: Text(label),
+          onDeleted: () {
+            setState(() {
+              data.getLabels().removeWhere((element) => label == element);
+              data.updateLabels(data.getLabels());
+            });
+          },
         ),
       ));
     });
-    return choices;
+    return selection;
   }
 
   @override
@@ -102,18 +110,48 @@ class _SettingsState extends State<SettingsPage> {
 
           //manage lables
           ContainerCard(
-            title: 'Manage Labels',
+            title: null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Manage Labels',
+                      style: Theme.of(context).brightness == Brightness.dark
+                          ? ContainerCardTitle.dark
+                          : ContainerCardTitle.light,
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        '+ Label',
+                        style: InfoCardLeading.dark,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              AddLabelDialog(isFromSettings: true),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+
                 spacer(height: 6.0),
                 // Text(
                 //   'Long press to edit/delete',
                 //   style: ContainerCardSubTitle.light,
                 // ),
-                Wrap(
-                  children: buildAllLabelsChip(),
-                )
+                Consumer<DataController>(builder: (context, data, child) {
+                  return Wrap(
+                    children: buildAllLabelsChip(),
+                  );
+                })
               ],
             ),
           ),

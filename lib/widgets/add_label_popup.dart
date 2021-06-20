@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddLabelDialog extends StatefulWidget {
-  const AddLabelDialog({Key key}) : super(key: key);
+  final bool isFromSettings;
+  const AddLabelDialog({Key key, this.isFromSettings = false})
+      : super(key: key);
 
   @override
   _AddLabelDialogState createState() => _AddLabelDialogState();
@@ -60,8 +62,8 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
             child: Text('ADD'),
             onPressed: () {
               if (dataController.validateForm(key: 'label')) {
-                Provider.of<DataController>(context, listen: false)
-                    .addLabel(labelController.text);
+                dataController.addLabel(labelController.text);
+                // dataController.updateLabels(dataController.getLabels());
                 Navigator.pop(context);
               }
             }),

@@ -30,12 +30,14 @@ class ContainerCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //title
-                Text(
-                  title,
-                  style: Theme.of(context).brightness == Brightness.dark
-                      ? ContainerCardTitle.dark
-                      : ContainerCardTitle.light,
-                ),
+                title != null
+                    ? Text(
+                        title,
+                        style: Theme.of(context).brightness == Brightness.dark
+                            ? ContainerCardTitle.dark
+                            : ContainerCardTitle.light,
+                      )
+                    : nothing(),
                 child,
               ],
             ),
