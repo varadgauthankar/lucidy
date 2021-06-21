@@ -1,4 +1,4 @@
-import 'package:dream_journal/utils/text_style.dart';
+import 'package:lucidy/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MyChip extends StatelessWidget {

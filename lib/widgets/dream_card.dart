@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:dream_journal/modals/dream.dart';
-import 'package:dream_journal/utils/colors.dart';
-import 'package:dream_journal/utils/helpers.dart';
-import 'package:dream_journal/utils/text_style.dart';
-import 'package:dream_journal/widgets/my_chip.dart';
+import 'package:lucidy/modals/dream.dart';
+import 'package:lucidy/utils/colors.dart';
+import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/utils/text_style.dart';
+import 'package:lucidy/widgets/my_chip.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

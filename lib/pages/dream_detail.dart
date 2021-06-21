@@ -1,10 +1,10 @@
-import 'package:dream_journal/controllers/data_controller.dart';
-import 'package:dream_journal/controllers/hive_controller.dart';
-import 'package:dream_journal/modals/dream.dart';
-import 'package:dream_journal/pages/tab_dream_page.dart';
-import 'package:dream_journal/pages/tab_info_page.dart';
-import 'package:dream_journal/utils/helpers.dart';
-import 'package:dream_journal/widgets/delete_dream_popup.dart';
+import 'package:lucidy/controllers/data_controller.dart';
+import 'package:lucidy/controllers/hive_controller.dart';
+import 'package:lucidy/modals/dream.dart';
+import 'package:lucidy/pages/tab_dream_page.dart';
+import 'package:lucidy/pages/tab_info_page.dart';
+import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/widgets/delete_dream_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';

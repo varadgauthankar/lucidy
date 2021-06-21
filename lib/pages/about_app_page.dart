@@ -1,6 +1,6 @@
-import 'package:dream_journal/utils/helpers.dart';
-import 'package:dream_journal/utils/text_style.dart';
-import 'package:dream_journal/widgets/tile.dart';
+import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/utils/text_style.dart';
+import 'package:lucidy/widgets/tile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 

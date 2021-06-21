@@ -1,4 +1,4 @@
-import 'package:dream_journal/controllers/hive_controller.dart';
+import 'package:lucidy/controllers/hive_controller.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmDelete extends StatelessWidget {

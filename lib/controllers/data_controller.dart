@@ -1,5 +1,5 @@
-import 'package:dream_journal/controllers/hive_controller.dart';
-import 'package:dream_journal/modals/dream.dart';
+import 'package:lucidy/controllers/hive_controller.dart';
+import 'package:lucidy/modals/dream.dart';
 import 'package:flutter/cupertino.dart';
 
 class DataController extends ChangeNotifier {

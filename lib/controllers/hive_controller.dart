@@ -1,4 +1,4 @@
-import 'package:dream_journal/modals/dream.dart';
+import 'package:lucidy/modals/dream.dart';
 import 'package:hive/hive.dart';
 
 class DreamController {

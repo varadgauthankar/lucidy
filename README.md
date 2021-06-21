@@ -1,4 +1,4 @@
-# dream_journal
+# lucidy
 
 A new Flutter project.
 

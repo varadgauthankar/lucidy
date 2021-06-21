@@ -1,9 +1,9 @@
-import 'package:dream_journal/controllers/data_controller.dart';
-import 'package:dream_journal/controllers/settings_controller.dart';
-import 'package:dream_journal/controllers/theme_controller.dart';
-import 'package:dream_journal/modals/dream.dart';
-import 'package:dream_journal/pages/home_page.dart';
-import 'package:dream_journal/utils/colors.dart';
+import 'package:lucidy/controllers/data_controller.dart';
+import 'package:lucidy/controllers/settings_controller.dart';
+import 'package:lucidy/controllers/theme_controller.dart';
+import 'package:lucidy/modals/dream.dart';
+import 'package:lucidy/pages/home_page.dart';
+import 'package:lucidy/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';

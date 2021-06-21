@@ -1,10 +1,10 @@
-import 'package:dream_journal/controllers/settings_controller.dart';
-import 'package:dream_journal/services/noification_service.dart';
-import 'package:dream_journal/utils/enums.dart';
-import 'package:dream_journal/utils/helpers.dart';
-import 'package:dream_journal/utils/text_style.dart';
-import 'package:dream_journal/utils/time_picker.dart';
-import 'package:dream_journal/widgets/container_card.dart';
+import 'package:lucidy/controllers/settings_controller.dart';
+import 'package:lucidy/services/noification_service.dart';
+import 'package:lucidy/utils/enums.dart';
+import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/utils/text_style.dart';
+import 'package:lucidy/utils/time_picker.dart';
+import 'package:lucidy/widgets/container_card.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

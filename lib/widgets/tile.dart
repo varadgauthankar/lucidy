@@ -1,5 +1,5 @@
-import 'package:dream_journal/utils/colors.dart';
-import 'package:dream_journal/utils/helpers.dart';
+import 'package:lucidy/utils/colors.dart';
+import 'package:lucidy/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatelessWidget {

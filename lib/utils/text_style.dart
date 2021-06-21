@@ -1,4 +1,4 @@
-import 'package:dream_journal/utils/colors.dart';
+import 'package:lucidy/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

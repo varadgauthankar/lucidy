@@ -1,4 +1,4 @@
-import 'package:dream_journal/utils/enums.dart';
+import 'package:lucidy/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

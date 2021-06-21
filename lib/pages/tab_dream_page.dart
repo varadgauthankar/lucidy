@@ -1,5 +1,5 @@
-import 'package:dream_journal/controllers/data_controller.dart';
-import 'package:dream_journal/utils/helpers.dart';
+import 'package:lucidy/controllers/data_controller.dart';
+import 'package:lucidy/utils/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

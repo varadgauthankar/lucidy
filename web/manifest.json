@@ -1,6 +1,6 @@
 {
-    "name": "dream_journal",
-    "short_name": "dream_journal",
+    "name": "lucidy",
+    "short_name": "lucidy",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

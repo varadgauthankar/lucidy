@@ -1,14 +1,14 @@
-import 'package:dream_journal/controllers/hive_controller.dart';
-import 'package:dream_journal/pages/about_app_page.dart';
-import 'package:dream_journal/pages/settings_page.dart';
-import 'package:dream_journal/pages/statistics_page.dart';
-import 'package:dream_journal/pages/tools_page.dart';
-import 'package:dream_journal/utils/colors.dart';
-import 'package:dream_journal/utils/helpers.dart';
-import 'package:dream_journal/widgets/dream_card.dart';
+import 'package:lucidy/controllers/hive_controller.dart';
+import 'package:lucidy/pages/about_app_page.dart';
+import 'package:lucidy/pages/settings_page.dart';
+import 'package:lucidy/pages/statistics_page.dart';
+import 'package:lucidy/pages/tools_page.dart';
+import 'package:lucidy/utils/colors.dart';
+import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/widgets/dream_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:dream_journal/pages/dream_detail.dart';
+import 'package:lucidy/pages/dream_detail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 

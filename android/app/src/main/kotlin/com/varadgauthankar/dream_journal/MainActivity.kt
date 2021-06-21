@@ -1,4 +1,4 @@
-package com.varadgauthankar.dream_journal
+package com.varadgauthankar.lucidy
 
 import io.flutter.embedding.android.FlutterActivity
 

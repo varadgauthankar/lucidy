@@ -1,4 +1,4 @@
-import 'package:dream_journal/widgets/statistics_card.dart';
+import 'package:lucidy/widgets/statistics_card.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsPage extends StatefulWidget {
