@@ -15,6 +15,7 @@ void main() async {
   Hive.registerAdapter(DreamInfoAdapter());
   await Hive.openBox<Dream>('dreams');
   await Hive.openBox<List<String>>('labels');
+  await Hive.openBox('settings');
   runApp(MyApp());
 }
 
