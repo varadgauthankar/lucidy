@@ -1,4 +1,5 @@
 import 'package:dream_journal/controllers/data_controller.dart';
+import 'package:dream_journal/controllers/settings_controller.dart';
 import 'package:dream_journal/controllers/theme_controller.dart';
 import 'package:dream_journal/modals/dream.dart';
 import 'package:dream_journal/pages/home_page.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => DataController()),
         ChangeNotifierProvider(create: (_) => ThemeController()),
+        ChangeNotifierProvider(create: (_) => SettingsController()),
       ],
       child: Consumer<ThemeController>(
         builder: (context, themeController, child) {

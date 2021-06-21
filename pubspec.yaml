@@ -25,6 +25,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   eva_icons_flutter: ^3.0.0
+  flutter_local_notifications: ^6.0.0
+  # git:
+  #   url: https://github.com/DenisShakinov/flutter_local_notifications.git
+  #   path: flutter_local_notifications
+  #   ref: new_date_time_components
+  flutter_native_timezone: ^2.0.0
   hive: ^2.0.4
   hive_flutter: ^1.0.0
   intl: ^0.17.0
