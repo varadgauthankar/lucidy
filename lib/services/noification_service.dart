@@ -17,7 +17,7 @@ class NotificationService {
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
     AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_notification');
 
     IOSInitializationSettings iosInitializationSettings =
         IOSInitializationSettings();
