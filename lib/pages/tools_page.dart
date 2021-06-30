@@ -28,6 +28,18 @@ class _ToolsPageState extends State<ToolsPage> {
     var settingsController =
         Provider.of<SettingsController>(context, listen: false);
     settingsController.setIsRealityCheck(value);
+
+    if (settingsController.isRealityCheck) {
+      notificationService.scheduleFrequentNotification(
+        title: 'Reality check',
+        description: settingsController.message,
+        startTime: settingsController.morningReminderTime,
+        endTime: settingsController.beforeBedTime,
+        frequency: settingsController.frequency,
+      );
+    } else {
+      notificationService.cancelScheduledNotification();
+    }
   }
 
   void handleMorningReminder(bool value) {
@@ -37,13 +49,13 @@ class _ToolsPageState extends State<ToolsPage> {
 
     if (settingsController.isMorningReminder) {
       notificationService.scheduleNotification(
-        id: 0,
+        id: 2,
         time: settingsController.morningReminderTime,
         title: 'Add Dream',
         description: 'Make sure to add the dream.',
       );
     } else {
-      notificationService.cancelNotification(id: 0);
+      notificationService.cancelNotification(id: 2);
     }
   }
 
@@ -54,13 +66,13 @@ class _ToolsPageState extends State<ToolsPage> {
 
     if (settingsController.isBeforeBedReminder) {
       notificationService.scheduleNotification(
-        id: 1,
+        id: 3,
         time: settingsController.beforeBedTime,
         title: 'Read morning dream',
         description: 'Make sure to read the morning dream.',
       );
     } else {
-      notificationService.cancelNotification(id: 1);
+      notificationService.cancelNotification(id: 3);
     }
   }
 
@@ -90,6 +102,16 @@ class _ToolsPageState extends State<ToolsPage> {
           selected: settingsController.frequency == item,
           onSelected: (_) {
             settingsController.setFrequency(item);
+            if (settingsController.isRealityCheck) {
+              notificationService.cancelNotification(id: 10);
+              notificationService.scheduleFrequentNotification(
+                title: 'Reality check',
+                description: 'Are you dreaming?',
+                startTime: settingsController.morningReminderTime,
+                endTime: settingsController.beforeBedTime,
+                frequency: settingsController.frequency,
+              );
+            }
           },
         ),
       ));
@@ -110,6 +132,15 @@ class _ToolsPageState extends State<ToolsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tools'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                notificationService
+                    .getPendingNotification()
+                    .then((value) => print(value.length));
+              },
+              icon: Icon(EvaIcons.bookOutline)),
+        ],
       ),
       body: ListView(
         children: [
@@ -187,7 +218,8 @@ class _ToolsPageState extends State<ToolsPage> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   onPressed: () async {
-                    var pickedTime = await selectTime(context);
+                    var pickedTime = await selectTime(context,
+                        initialTime: settingsController.morningReminderTime);
                     settingsController.setMorningReminderTime(pickedTime);
                   },
                   child: Row(
@@ -226,7 +258,8 @@ class _ToolsPageState extends State<ToolsPage> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   onPressed: () async {
-                    var pickedTime = await selectTime(context);
+                    var pickedTime = await selectTime(context,
+                        initialTime: settingsController.beforeBedTime);
                     settingsController.setBeforeBedTime(pickedTime);
                   },
                   child: Row(
