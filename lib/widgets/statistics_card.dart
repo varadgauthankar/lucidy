@@ -12,37 +12,32 @@ class StatisticsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(6.0),
+      margin: const EdgeInsets.all(4.0),
       child: Material(
-        color: Theme.of(context).brightness == Brightness.dark
+        color: isThemeDark(context)
             ? getOverLayColor(
                 context, MyColors.darkGrey) //get overlay color, material rules.
             : MyColors.white,
         elevation: 3.0,
         borderRadius: BorderRadius.circular(8.0),
-        child: InkWell(
-          onTap: () {},
-          splashColor: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(24.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Text(
-                    value,
-                    style: Theme.of(context).brightness == Brightness.dark
-                        ? StatisticsCardValue.dark
-                        : StatisticsCardValue.light,
-                  ),
-                  Text(
-                    title,
-                    style: Theme.of(context).brightness == Brightness.dark
-                        ? StatisticsCardTitle.dark
-                        : StatisticsCardTitle.light,
-                  ),
-                ],
-              ),
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  value,
+                  style: isThemeDark(context)
+                      ? StatisticsCardValue.dark
+                      : StatisticsCardValue.light,
+                ),
+                Text(
+                  title,
+                  style: isThemeDark(context)
+                      ? StatisticsCardTitle.dark
+                      : StatisticsCardTitle.light,
+                ),
+              ],
             ),
           ),
         ),
@@ -70,64 +65,55 @@ class StatisticsCard2 extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(6.0),
       child: Material(
-        color: Theme.of(context).brightness == Brightness.dark
+        color: isThemeDark(context)
             ? getOverLayColor(
                 context, MyColors.darkGrey) //get overlay color, material rules.
             : MyColors.white,
         elevation: 3.0,
         borderRadius: BorderRadius.circular(8.0),
-        child: InkWell(
-          onTap: () {},
-          splashColor: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(24.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            value1,
-                            style:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? StatisticsCardValue.dark
-                                    : StatisticsCardValue.light,
-                          ),
-                          Text(
-                            title1,
-                            style:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? StatisticsCardTitle.dark
-                                    : StatisticsCardTitle.light,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            value2,
-                            style:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? StatisticsCardValue.dark
-                                    : StatisticsCardValue.light,
-                          ),
-                          Text(
-                            title2,
-                            style:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? StatisticsCardTitle.dark
-                                    : StatisticsCardTitle.light,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Center(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          value1,
+                          style: isThemeDark(context)
+                              ? StatisticsCardValue.dark
+                              : StatisticsCardValue.light,
+                        ),
+                        Text(
+                          title1,
+                          style: isThemeDark(context)
+                              ? StatisticsCardTitle.dark
+                              : StatisticsCardTitle.light,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          value2,
+                          style: isThemeDark(context)
+                              ? StatisticsCardValue.dark
+                              : StatisticsCardValue.light,
+                        ),
+                        Text(
+                          title2,
+                          style: isThemeDark(context)
+                              ? StatisticsCardTitle.dark
+                              : StatisticsCardTitle.light,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -150,28 +136,23 @@ class StatisticsCard3 extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(6.0),
       child: Material(
-        color: Theme.of(context).brightness == Brightness.dark
+        color: isThemeDark(context)
             ? getOverLayColor(
                 context, MyColors.darkGrey) //get overlay color, material rules.
             : MyColors.white,
         elevation: 3.0,
         borderRadius: BorderRadius.circular(8.0),
-        child: InkWell(
-          onTap: () {},
-          splashColor: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: StatisticsCardTitle.light,
-                ),
-                child,
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: StatisticsCardTitle.light,
+              ),
+              child,
+            ],
           ),
         ),
       ),

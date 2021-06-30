@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:lucidy/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lucidy/utils/helpers.dart';
 
 class SettingsController extends ChangeNotifier {
   bool isRealityCheck = false;
@@ -18,14 +19,20 @@ class SettingsController extends ChangeNotifier {
   Box box = Hive.box('settings');
 
   SettingsController() {
-    isRealityCheck = box.get('isRealityCheck') ?? isRealityCheck;
-    isMorningReminder = box.get('isMorningReminder') ?? isMorningReminder;
-    isBeforeBedReminder = box.get('isBeforeBedReminder') ?? isBeforeBedReminder;
-    morningReminderTime = box.get('morningReminderTime') ?? morningReminderTime;
-    beforeBedTime = box.get('beforeBedTime') ?? beforeBedTime;
-    message = box.get('message') ?? message;
-    frequency = Frequency.values[box.get('frequency') ?? 2];
-    messageController.text = box.get('message') ?? message;
+    isRealityCheck = box.get('isRealityCheck', defaultValue: isRealityCheck);
+    isMorningReminder =
+        box.get('isMorningReminder', defaultValue: isMorningReminder);
+    isBeforeBedReminder =
+        box.get('isBeforeBedReminder', defaultValue: isBeforeBedReminder);
+    morningReminderTime = getTimeFromString(
+            box.get('morningReminderTime', defaultValue: '7:00')) ??
+        morningReminderTime;
+    beforeBedTime = getTimeFromString(
+            box.get('morningReminderTime', defaultValue: '23:00')) ??
+        beforeBedTime;
+    message = box.get('message', defaultValue: message);
+    frequency = Frequency.values[box.get('frequency', defaultValue: 2)];
+    messageController.text = box.get('message', defaultValue: message);
   }
 
   setIsRealityCheck(bool value) {
@@ -48,16 +55,13 @@ class SettingsController extends ChangeNotifier {
 
   setMorningReminderTime(TimeOfDay time) {
     this.morningReminderTime = time;
-    //FIXME
-    box.put('morningReminderTime', time);
+    box.put('morningReminderTime', '${time.hour}:${time.minute}');
     notifyListeners();
   }
 
   setBeforeBedTime(TimeOfDay time) {
     this.beforeBedTime = time;
-    //FIXME
-    box.put('beforeBedTime', time);
-
+    box.put('beforeBedTime', '${time.hour}:${time.minute}');
     notifyListeners();
   }
 

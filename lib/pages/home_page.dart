@@ -5,6 +5,7 @@ import 'package:lucidy/pages/statistics_page.dart';
 import 'package:lucidy/pages/tools_page.dart';
 import 'package:lucidy/utils/colors.dart';
 import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/dream_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isThemeDark = false;
-
   DreamController dreamController;
 
   @override
@@ -34,7 +33,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dreams'),
+        title: Text(
+          'Dreams',
+          style: AppBarTitleStyle.lightDark,
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(
                 EvaIcons.settings2Outline,
-                color: MyColors.black,
+                color: isThemeDark(context) ? MyColors.white : MyColors.black,
               ),
               title: Text('Settings'),
               onTap: () => toPage(context, SettingsPage()),
@@ -55,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(
                 EvaIcons.optionsOutline,
-                color: MyColors.black,
+                color: isThemeDark(context) ? MyColors.white : MyColors.black,
               ),
               title: Text('Lucid dream tools'),
               onTap: () => toPage(context, ToolsPage()),
@@ -63,7 +65,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(
                 EvaIcons.pieChartOutline,
-                color: MyColors.black,
+                color: isThemeDark(context) ? MyColors.white : MyColors.black,
               ),
               title: Text('Statistics'),
               onTap: () => toPage(context, StatisticsPage()),
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(
                 EvaIcons.infoOutline,
-                color: MyColors.black,
+                color: isThemeDark(context) ? MyColors.white : MyColors.black,
               ),
               title: Text('About app'),
               onTap: () => toPage(context, AboutPage()),
@@ -88,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                 var dreamsList = dreams.values.toList();
                 if (dreams.isNotEmpty) {
                   return ListView.builder(
+                    padding: EdgeInsets.all(4.0),
                     itemCount: dreamsList.length,
                     itemBuilder: (context, index) {
                       var dream = dreamsList[index];
@@ -95,14 +98,12 @@ class _HomePageState extends State<HomePage> {
                         title: dream.title,
                         description: dream.description,
                         dreamInfo: dream.dreamInfo,
-                        oneTap: () => Navigator.push(
+                        oneTap: () => toPage(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => DreamDetail(
-                              dream: dream,
-                              isEdit: true,
-                              dreamKey: dream.key,
-                            ),
+                          DreamDetail(
+                            dream: dream,
+                            isEdit: true,
+                            dreamKey: dream.key,
                           ),
                         ),
                       );

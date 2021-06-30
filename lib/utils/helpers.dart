@@ -21,3 +21,15 @@ Widget nothing() {
 void toPage(BuildContext context, Widget page) {
   Navigator.push(context, MaterialPageRoute(builder: (contex) => page));
 }
+
+bool isThemeDark(BuildContext context) {
+  return Theme.of(context).brightness == Brightness.dark ? true : false;
+}
+
+TimeOfDay getTimeFromString(String time) {
+  var timeofDay = TimeOfDay(
+      hour: int.parse(time.split(":")[0]),
+      minute: int.parse(time.split(":")[1]));
+  print('timeofDay: $timeofDay');
+  return timeofDay;
+}

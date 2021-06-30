@@ -4,6 +4,7 @@ import 'package:lucidy/modals/dream.dart';
 import 'package:lucidy/pages/tab_dream_page.dart';
 import 'package:lucidy/pages/tab_info_page.dart';
 import 'package:lucidy/utils/helpers.dart';
+import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/delete_dream_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,7 @@ class _DreamDetailState extends State<DreamDetail>
     dataController.setIsFavorite(isFavorite);
 
     snackBar(context,
-        content: isArchive ? 'Marked as favorite' : 'un-marked as favorite');
+        content: isFavorite ? 'Marked as favorite' : 'un-marked as favorite');
 
     if (widget.dream != null)
       DreamController()
@@ -116,15 +117,16 @@ class _DreamDetailState extends State<DreamDetail>
 
   @override
   Widget build(BuildContext context) {
-    DataController dataController =
-        Provider.of<DataController>(context, listen: false);
     return Scaffold(
       body: DefaultTabController(
         initialIndex: 0,
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.isEdit ? 'Edit Dream' : 'Create Dream'),
+            title: Text(
+              widget.isEdit ? 'Edit Dream' : 'Create Dream',
+              style: AppBarTitleStyle.lightDark,
+            ),
             actions: [
               IconButton(
                 tooltip: 'Mark as favorite',
@@ -187,6 +189,7 @@ class _DreamDetailState extends State<DreamDetail>
 
   Widget floatingActionButton() {
     return FloatingActionButton(
+      heroTag: 'fab',
       child: Icon(fabIcon),
       onPressed: () {
         bool isFormValid = context.read<DataController>().validateForm();

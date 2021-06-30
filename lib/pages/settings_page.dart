@@ -2,7 +2,6 @@ import 'package:lucidy/controllers/data_controller.dart';
 import 'package:lucidy/controllers/hive_controller.dart';
 import 'package:lucidy/controllers/theme_controller.dart';
 import 'package:lucidy/utils/colors.dart';
-import 'package:lucidy/utils/enums.dart';
 import 'package:lucidy/utils/helpers.dart';
 import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/add_label_popup.dart';
@@ -20,32 +19,32 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsState extends State<SettingsPage> {
-  AppTheme appTheme;
+  ThemeMode themeMode;
   LabelController labelController = LabelController();
 
-  void toggleAppTheme(AppTheme appTheme) {
+  void toggleAppTheme(ThemeMode themeMode) {
     Provider.of<ThemeController>(context, listen: false)
-        .toggleAppTheme(appTheme);
+        .toggleAppTheme(themeMode);
   }
 
   void setChipValues() {
-    appTheme = Provider.of<ThemeController>(context, listen: false).appTheme;
+    themeMode = Provider.of<ThemeController>(context, listen: false).themeMode;
   }
 
   //dark mode chips
   List<Widget> buildDarkModeChips() {
     List<Widget> choices = [];
-    AppTheme.values.forEach((item) {
+    ThemeMode.values.forEach((item) {
       choices.add(Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: ChoiceChip(
           label: Text(toBeginningOfSentenceCase(
               describeEnum(item))), //Enum to string, First letter capital
-          selected: appTheme == item,
+          selected: themeMode == item,
           onSelected: (selected) {
             setState(() {
-              appTheme = item;
-              toggleAppTheme(appTheme);
+              themeMode = item;
+              toggleAppTheme(themeMode);
             });
           },
         ),
@@ -86,9 +85,13 @@ class _SettingsState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text(
+          'Settings',
+          style: AppBarTitleStyle.lightDark,
+        ),
       ),
       body: ListView(
+        padding: EdgeInsets.all(4.0),
         children: [
           //theme
           ContainerCard(
@@ -98,8 +101,10 @@ class _SettingsState extends State<SettingsPage> {
               children: [
                 spacer(height: 6.0),
                 Text(
-                  'Dark Mode',
-                  style: ContainerCardSubTitle.light,
+                  'Theme',
+                  style: isThemeDark(context)
+                      ? ContainerCardSubTitle.dark
+                      : ContainerCardSubTitle.light,
                 ),
                 Wrap(
                   children: buildDarkModeChips(),
@@ -119,7 +124,7 @@ class _SettingsState extends State<SettingsPage> {
                   children: [
                     Text(
                       'Manage Labels',
-                      style: Theme.of(context).brightness == Brightness.dark
+                      style: isThemeDark(context)
                           ? ContainerCardTitle.dark
                           : ContainerCardTitle.light,
                     ),
@@ -141,12 +146,7 @@ class _SettingsState extends State<SettingsPage> {
                     ),
                   ],
                 ),
-
                 spacer(height: 6.0),
-                // Text(
-                //   'Long press to edit/delete',
-                //   style: ContainerCardSubTitle.light,
-                // ),
                 Consumer<DataController>(builder: (context, data, child) {
                   return Wrap(
                     children: buildAllLabelsChip(),
@@ -163,20 +163,22 @@ class _SettingsState extends State<SettingsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 spacer(height: 6.0),
-                // Text(
-                //   'Long press to edit/delete',
-                //   style: ContainerCardSubTitle.light,
-                // ),
                 TextButton(
                   onPressed: () {},
-                  child: Text('Backup'),
+                  child: Text('Backup',
+                      style: isThemeDark(context)
+                          ? MyButtonStyle.normalDark
+                          : MyButtonStyle.normalLight),
                   style: TextButton.styleFrom(
                     backgroundColor: MyColors.lightGrey.withOpacity(0.3),
                   ),
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: Text('Restore'),
+                  child: Text('Restore',
+                      style: isThemeDark(context)
+                          ? MyButtonStyle.normalDark
+                          : MyButtonStyle.normalLight),
                   style: TextButton.styleFrom(
                     backgroundColor: MyColors.lightGrey.withOpacity(0.3),
                   ),

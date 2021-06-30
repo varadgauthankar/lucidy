@@ -2,6 +2,13 @@ import 'package:lucidy/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class AppBarTitleStyle {
+  static const lightDark = TextStyle(
+    color: MyColors.white,
+    fontWeight: FontWeight.w600,
+  );
+}
+
 class CardTitle {
   static const light = TextStyle(
     color: MyColors.black,
@@ -42,7 +49,7 @@ class CardDate {
   );
 }
 
-class cardLabel {
+class CardLabel {
   static const light = TextStyle(
     color: MyColors.darkGrey,
     fontSize: 14,
@@ -122,6 +129,14 @@ class MyButtonStyle {
     color: MyColors.accentVarient,
     fontWeight: FontWeight.w600,
   );
+  static const normalDark = TextStyle(
+    color: MyColors.white,
+    fontWeight: FontWeight.w600,
+  );
+  static const normalLight = TextStyle(
+    color: MyColors.primary,
+    fontWeight: FontWeight.w600,
+  );
 }
 
 //statistic card
@@ -179,5 +194,14 @@ class TileSubtitle {
     fontSize: 18,
     fontWeight: FontWeight.w400,
     color: MyColors.white,
+  );
+}
+
+class MyListTileStyle {
+  static const dark = TextStyle(
+    color: MyColors.white,
+  );
+  static const light = TextStyle(
+    color: MyColors.darkGrey,
   );
 }

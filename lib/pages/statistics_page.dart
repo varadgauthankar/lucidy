@@ -1,3 +1,4 @@
+import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/statistics_card.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,10 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Statistics'),
+        title: Text(
+          'Statistics',
+          style: AppBarTitleStyle.lightDark,
+        ),
       ),
       body: ListView(
         padding: EdgeInsets.all(4.0),
@@ -25,10 +29,16 @@ class _StatisticsPageState extends State<StatisticsPage> {
               Row(
                 children: [
                   Expanded(
-                    child: StatisticsCard(title: 'All Dreams', value: '10'),
+                    child: StatisticsCard(
+                      title: 'All Dreams',
+                      value: '10',
+                    ),
                   ),
                   Expanded(
-                    child: StatisticsCard(title: 'All Dreams', value: '10'),
+                    child: StatisticsCard(
+                      title: 'All Dreams',
+                      value: '10',
+                    ),
                   ),
                 ],
               ),

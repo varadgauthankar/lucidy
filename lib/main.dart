@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
               primaryColor: MyColors.primary,
               accentColor: MyColors.accent,
               primarySwatch: Colors.deepPurple,
+              scaffoldBackgroundColor: MyColors.white,
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.deepPurple,
               scaffoldBackgroundColor: MyColors.darkGrey,
             ),
-            themeMode: themeController.themeModeFromEnum(),
+            themeMode: themeController.themeMode,
             home: HomePage(),
           );
         },

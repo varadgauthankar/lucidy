@@ -20,8 +20,6 @@ class TabInfo extends StatefulWidget {
 }
 
 class _TabInfoState extends State<TabInfo> {
-  bool isThemeDark = false;
-
   TextEditingController noteController;
 
   @override
@@ -48,8 +46,8 @@ class _TabInfoState extends State<TabInfo> {
       selection.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: FilterChip(
-          label: Text(label),
           selectedColor: MyColors.accent,
+          label: Text(label),
           onSelected: (val) {
             setState(() {
               if (val)
@@ -69,7 +67,7 @@ class _TabInfoState extends State<TabInfo> {
   Widget build(BuildContext context) {
     return Consumer<DataController>(
       builder: (context, dataController, child) => ListView(
-        padding: EdgeInsets.all(6.0),
+        padding: EdgeInsets.all(4.0),
         children: [
           //info card
           TabInfoCard(
@@ -78,7 +76,9 @@ class _TabInfoState extends State<TabInfo> {
               children: [
                 Text(
                   'Info',
-                  style: isThemeDark ? InfoCardTitle.dark : InfoCardTitle.light,
+                  style: isThemeDark(context)
+                      ? InfoCardTitle.dark
+                      : InfoCardTitle.light,
                 ),
                 spacer(height: 6.0),
 
@@ -128,7 +128,7 @@ class _TabInfoState extends State<TabInfo> {
                   children: [
                     Text(
                       'Labels',
-                      style: isThemeDark
+                      style: isThemeDark(context)
                           ? InfoCardTitle.dark
                           : InfoCardTitle.light,
                     ),
@@ -138,7 +138,7 @@ class _TabInfoState extends State<TabInfo> {
                       ),
                       child: Text(
                         '+ Label',
-                        style: isThemeDark
+                        style: isThemeDark(context)
                             ? InfoCardLeading.dark
                             : InfoCardLeading.light,
                       ),

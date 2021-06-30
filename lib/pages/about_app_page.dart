@@ -1,3 +1,4 @@
+import 'package:lucidy/utils/colors.dart';
 import 'package:lucidy/utils/helpers.dart';
 import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/tile.dart';
@@ -11,7 +12,10 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About'),
+        title: Text(
+          'About',
+          style: AppBarTitleStyle.lightDark,
+        ),
       ),
       body: ListView(
         padding: EdgeInsets.all(4.0),
@@ -25,22 +29,37 @@ class AboutPage extends StatelessWidget {
                 spacer(height: 6.0),
                 Text(
                   'App Name',
-                  style: TileTitle.light,
+                  style:
+                      isThemeDark(context) ? TileTitle.dark : TileTitle.light,
                 ),
-                Text('version: 1.0.1', style: TileSubtitle.light),
+                Text(
+                  'version: 1.0.1',
+                  style: isThemeDark(context)
+                      ? TileSubtitle.dark
+                      : TileSubtitle.light,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       onPressed: () {},
+                      color: isThemeDark(context)
+                          ? MyColors.black
+                          : MyColors.white,
                       icon: Icon(EvaIcons.starOutline),
                     ),
                     IconButton(
                       onPressed: () {},
+                      color: isThemeDark(context)
+                          ? MyColors.black
+                          : MyColors.white,
                       icon: Icon(EvaIcons.shoppingBagOutline),
                     ),
                     IconButton(
                       onPressed: () {},
+                      color: isThemeDark(context)
+                          ? MyColors.black
+                          : MyColors.white,
                       icon: Icon(EvaIcons.shareOutline),
                     )
                   ],
@@ -57,18 +76,28 @@ class AboutPage extends StatelessWidget {
                 spacer(height: 6.0),
                 Text(
                   'Varad Gauthankar',
-                  style: TileTitle.light,
+                  style:
+                      isThemeDark(context) ? TileTitle.dark : TileTitle.light,
                 ),
-                Text('Developer', style: TileSubtitle.light),
+                Text('Developer',
+                    style: isThemeDark(context)
+                        ? TileSubtitle.dark
+                        : TileSubtitle.light),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       onPressed: () {},
+                      color: isThemeDark(context)
+                          ? MyColors.black
+                          : MyColors.white,
                       icon: Icon(EvaIcons.githubOutline),
                     ),
                     IconButton(
                       onPressed: () {},
+                      color: isThemeDark(context)
+                          ? MyColors.black
+                          : MyColors.white,
                       icon: Icon(EvaIcons.twitterOutline),
                     ),
                   ],

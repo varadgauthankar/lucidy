@@ -1,47 +1,19 @@
-import 'package:lucidy/utils/enums.dart';
+import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeController extends ChangeNotifier {
   final String key = "AppTheme";
+  Box box = Hive.box('settings');
 
-  AppTheme appTheme;
+  ThemeMode themeMode;
 
   ThemeController() {
-    appTheme = AppTheme.light;
-    getThemeFromPrefs();
+    themeMode = ThemeMode.values[box.get(key, defaultValue: ThemeMode.light)];
   }
 
-  toggleAppTheme(AppTheme appTheme) {
-    this.appTheme = appTheme;
-    saveThemeToPrefs();
+  toggleAppTheme(ThemeMode themeMode) {
+    this.themeMode = themeMode;
+    box.put(key, themeMode.index);
     notifyListeners();
-  }
-
-  getThemeFromPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String prefsData = prefs.getString(key);
-    this.appTheme = appThemeEnumFromString(prefsData);
-    notifyListeners();
-  }
-
-  saveThemeToPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, appTheme.toString());
-  }
-
-  AppTheme appThemeEnumFromString(String value) {
-    return AppTheme.values.firstWhere((e) => e.toString() == value);
-  }
-
-  ThemeMode themeModeFromEnum() {
-    if (appTheme == AppTheme.light)
-      return ThemeMode.light;
-    else if (appTheme == AppTheme.dark)
-      return ThemeMode.dark;
-    else if (appTheme == AppTheme.system)
-      return ThemeMode.system;
-    else
-      return ThemeMode.light;
   }
 }

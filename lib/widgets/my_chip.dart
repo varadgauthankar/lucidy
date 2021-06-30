@@ -18,7 +18,7 @@ class MyChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: cardLabel.light,
+        style: CardLabel.light,
       ),
     );
   }

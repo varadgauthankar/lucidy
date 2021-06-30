@@ -47,7 +47,7 @@ class _TabDreamState extends State<TabDream>
     DataController dataController =
         Provider.of<DataController>(context, listen: false);
     return ListView(
-      padding: EdgeInsets.all(12.0),
+      padding: EdgeInsets.all(8.0),
       children: [
         Form(
           key: dataController.formKey,

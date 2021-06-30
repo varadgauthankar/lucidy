@@ -12,7 +12,7 @@ class ContainerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(6.0),
+      margin: const EdgeInsets.all(4.0),
       child: Material(
         color: Theme.of(context).brightness == Brightness.dark
             ? getOverLayColor(
@@ -20,27 +20,22 @@ class ContainerCard extends StatelessWidget {
             : MyColors.white,
         elevation: 3.0,
         borderRadius: BorderRadius.circular(8.0),
-        child: InkWell(
-          onTap: () {},
-          splashColor: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //title
-                title != null
-                    ? Text(
-                        title,
-                        style: Theme.of(context).brightness == Brightness.dark
-                            ? ContainerCardTitle.dark
-                            : ContainerCardTitle.light,
-                      )
-                    : nothing(),
-                child,
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //title
+              title != null
+                  ? Text(
+                      title,
+                      style: isThemeDark(context)
+                          ? ContainerCardTitle.dark
+                          : ContainerCardTitle.light,
+                    )
+                  : nothing(),
+              child,
+            ],
           ),
         ),
       ),

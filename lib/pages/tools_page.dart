@@ -122,7 +122,6 @@ class _ToolsPageState extends State<ToolsPage> {
   @override
   void initState() {
     notificationService.init();
-
     super.initState();
   }
 
@@ -131,18 +130,13 @@ class _ToolsPageState extends State<ToolsPage> {
     var settingsController = Provider.of<SettingsController>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tools'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                notificationService
-                    .getPendingNotification()
-                    .then((value) => print(value.length));
-              },
-              icon: Icon(EvaIcons.bookOutline)),
-        ],
+        title: Text(
+          'Tools',
+          style: AppBarTitleStyle.lightDark,
+        ),
       ),
       body: ListView(
+        padding: EdgeInsets.all(4.0),
         children: [
           //Reality check
           ContainerCard(
@@ -152,7 +146,12 @@ class _ToolsPageState extends State<ToolsPage> {
               children: [
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text('Reality check throught out the day'),
+                  title: Text(
+                    'Reality check throught out the day',
+                    style: isThemeDark(context)
+                        ? MyListTileStyle.dark
+                        : MyListTileStyle.light,
+                  ),
                   value: settingsController.isRealityCheck,
                   onChanged: (value) => handleRealityCheck(value),
                 ),
@@ -160,7 +159,9 @@ class _ToolsPageState extends State<ToolsPage> {
                   children: [
                     Text(
                       'Frequency',
-                      style: ContainerCardSubTitle.light,
+                      style: isThemeDark(context)
+                          ? ContainerCardSubTitle.dark
+                          : ContainerCardSubTitle.light,
                     ),
                     IconButton(
                       padding: EdgeInsets.only(left: 6.0),
@@ -179,7 +180,9 @@ class _ToolsPageState extends State<ToolsPage> {
                 ),
                 Text(
                   'Message',
-                  style: ContainerCardSubTitle.light,
+                  style: isThemeDark(context)
+                      ? ContainerCardSubTitle.dark
+                      : ContainerCardSubTitle.light,
                 ),
                 spacer(height: 12.0),
                 TextFormField(
@@ -204,13 +207,20 @@ class _ToolsPageState extends State<ToolsPage> {
               children: [
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text('Reminder to log dreams just when you wake up'),
+                  title: Text(
+                    'Reminder to log dreams just when you wake up',
+                    style: isThemeDark(context)
+                        ? MyListTileStyle.dark
+                        : MyListTileStyle.light,
+                  ),
                   value: settingsController.isMorningReminder,
                   onChanged: (value) => handleMorningReminder(value),
                 ),
                 Text(
                   'Pick a time',
-                  style: ContainerCardSubTitle.light,
+                  style: isThemeDark(context)
+                      ? ContainerCardSubTitle.dark
+                      : ContainerCardSubTitle.light,
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
@@ -244,13 +254,19 @@ class _ToolsPageState extends State<ToolsPage> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                      'Reminder to read morning dreams. an essensial way to make lucid dreams work'),
+                    'Reminder to read morning dreams. an essensial way to make lucid dreams work',
+                    style: isThemeDark(context)
+                        ? MyListTileStyle.dark
+                        : MyListTileStyle.light,
+                  ),
                   value: settingsController.isBeforeBedReminder,
                   onChanged: (value) => handleBeforeBedReminder(value),
                 ),
                 Text(
                   'Pick a time',
-                  style: ContainerCardSubTitle.light,
+                  style: isThemeDark(context)
+                      ? ContainerCardSubTitle.dark
+                      : ContainerCardSubTitle.light,
                 ),
                 TextButton(
                   style: TextButton.styleFrom(

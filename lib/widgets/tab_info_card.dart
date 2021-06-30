@@ -9,7 +9,7 @@ class TabInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(6),
+      margin: EdgeInsets.all(4),
       child: Material(
         color: Theme.of(context).brightness == Brightness.dark
             ? getOverLayColor(

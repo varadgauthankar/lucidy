@@ -57,9 +57,9 @@ class DreamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(6.0),
+      margin: const EdgeInsets.all(4.0),
       child: Material(
-        color: Theme.of(context).brightness == Brightness.dark
+        color: isThemeDark(context)
             ? getOverLayColor(
                 context, MyColors.darkGrey) //get overlay color, material rules.
             : MyColors.white,
@@ -67,7 +67,7 @@ class DreamCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         child: InkWell(
           onTap: oneTap,
-          splashColor: Theme.of(context).accentColor,
+          splashColor: MyColors.accent,
           borderRadius: BorderRadius.circular(8.0),
           child: Padding(
             padding: EdgeInsets.all(12.0),
@@ -83,7 +83,7 @@ class DreamCard extends StatelessWidget {
                         Text(
                           DateFormat('EEE, dd MMM')
                               .format(dreamInfo.dateCreated),
-                          style: Theme.of(context).brightness == Brightness.dark
+                          style: isThemeDark(context)
                               ? CardDate.dark
                               : CardDate.light,
                         ),
@@ -106,16 +106,15 @@ class DreamCard extends StatelessWidget {
                 //title
                 Text(
                   title,
-                  style: Theme.of(context).brightness == Brightness.dark
-                      ? CardTitle.dark
-                      : CardTitle.light,
+                  style:
+                      isThemeDark(context) ? CardTitle.dark : CardTitle.light,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 //description
                 Text(
                   description,
-                  style: Theme.of(context).brightness == Brightness.dark
+                  style: isThemeDark(context)
                       ? CardSubTitle.dark
                       : CardSubTitle.light,
                   overflow: TextOverflow.fade,
