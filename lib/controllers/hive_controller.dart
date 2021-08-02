@@ -3,21 +3,21 @@ import 'package:hive/hive.dart';
 
 class DreamController {
   static const boxName = 'dreams';
-  Box<Dream> box = Hive.box(boxName);
+  static Box<Dream> box = Hive.box(boxName);
 
-  void insertDream(Dream dream) => box.add(dream);
+  static void insertDream(Dream dream) => box.add(dream);
 
-  void updateDream(int key, Dream dream) => box.put(key, dream);
+  static void updateDream(int key, Dream dream) => box.put(key, dream);
 
-  void deleteDream(int key) => box.delete(key);
+  static void deleteDream(int key) => box.delete(key);
 }
 
 class LabelController {
   static const boxName = 'labels';
   static const key = 'labels';
-  Box<List<String>> box = Hive.box<List<String>>(boxName);
+  static Box<List<String>> box = Hive.box<List<String>>(boxName);
 
-  void insertLabels(List<String> labels) => box.put(key, labels);
+  static void insertLabels(List<String> labels) => box.put(key, labels);
 
-  List<String> getLabels() => box.get(key);
+  static List<String> getLabels() => box.get(key);
 }
