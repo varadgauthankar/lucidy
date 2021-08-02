@@ -21,6 +21,7 @@ class ConfirmDelete extends StatelessWidget {
             onPressed: () {
               dreamController.deleteDream(dreamKey);
               Navigator.pop(context);
+              Navigator.pop(context);
             }),
       ],
       shape: RoundedRectangleBorder(
