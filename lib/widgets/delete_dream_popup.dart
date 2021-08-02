@@ -8,8 +8,6 @@ class ConfirmDelete extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DreamController dreamController = DreamController();
-
     return AlertDialog(
       title: Text('Delete dream?'),
       content: Text('Are you sure to delete? This cannot be un done.'),
@@ -19,7 +17,7 @@ class ConfirmDelete extends StatelessWidget {
         TextButton(
             child: Text('DELETE'),
             onPressed: () {
-              dreamController.deleteDream(dreamKey);
+              DreamController.deleteDream(dreamKey);
               Navigator.pop(context);
               Navigator.pop(context);
             }),

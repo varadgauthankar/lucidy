@@ -21,11 +21,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DreamController dreamController;
-
   @override
   void initState() {
-    dreamController = DreamController();
     super.initState();
   }
 
@@ -85,7 +82,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: ValueListenableBuilder(
-              valueListenable: dreamController.box.listenable(),
+              valueListenable: DreamController.box.listenable(),
               builder: (context, dreams, widget) {
                 var dreamsList = dreams.values.toList();
                 if (dreams.isNotEmpty) {

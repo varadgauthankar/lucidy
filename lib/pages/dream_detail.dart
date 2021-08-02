@@ -26,7 +26,6 @@ class _DreamDetailState extends State<DreamDetail>
     with TickerProviderStateMixin {
   TabController tabController;
   IconData fabIcon = EvaIcons.chevronRightOutline;
-  DreamController dreamController;
 
   bool isFavorite = false;
   bool isArchive = false;
@@ -68,8 +67,7 @@ class _DreamDetailState extends State<DreamDetail>
         content: isFavorite ? 'Marked as favorite' : 'un-marked as favorite');
 
     if (widget.dream != null)
-      DreamController()
-        ..updateDream(widget.dreamKey, dataController.getDream());
+      DreamController.updateDream(widget.dreamKey, dataController.getDream());
   }
 
   void toggleArchive() {
@@ -83,8 +81,7 @@ class _DreamDetailState extends State<DreamDetail>
         content: isArchive ? 'Dream archived' : 'Dream unarchived');
 
     if (widget.dream != null)
-      DreamController()
-        ..updateDream(widget.dreamKey, dataController.getDream());
+      DreamController.updateDream(widget.dreamKey, dataController.getDream());
   }
 
   setFavAndArcive() {
@@ -100,7 +97,6 @@ class _DreamDetailState extends State<DreamDetail>
   void initState() {
     tabController = TabController(vsync: this, length: 2);
     tabController.addListener(handleFab);
-    dreamController = DreamController();
 
     //set fav and archive value in edit mode
     setFavAndArcive();
@@ -200,10 +196,10 @@ class _DreamDetailState extends State<DreamDetail>
           tabController.animateTo(1);
         else if (isFormValid && tab == 1) {
           if (widget.isEdit)
-            dreamController.updateDream(widget.dreamKey,
+            DreamController.updateDream(widget.dreamKey,
                 Provider.of<DataController>(context, listen: false).getDream());
           else
-            dreamController.insertDream(
+            DreamController.insertDream(
                 Provider.of<DataController>(context, listen: false).getDream());
 
           Navigator.of(context).pop();
