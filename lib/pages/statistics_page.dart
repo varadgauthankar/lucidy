@@ -1,6 +1,8 @@
+import 'package:lucidy/controllers/data_controller.dart';
 import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/statistics_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({Key key}) : super(key: key);
@@ -12,6 +14,9 @@ class StatisticsPage extends StatefulWidget {
 class _StatisticsPageState extends State<StatisticsPage> {
   @override
   Widget build(BuildContext context) {
+    DataController dataController =
+        Provider.of<DataController>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,34 +30,35 @@ class _StatisticsPageState extends State<StatisticsPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              StatisticsCard(title: 'All Dreams', value: '10'),
+              StatisticsCard(
+                title: 'All Dreams',
+                value: dataController.getAllDreamsCount().toString(),
+              ),
               Row(
                 children: [
                   Expanded(
                     child: StatisticsCard(
-                      title: 'All Dreams',
-                      value: '10',
+                      title: 'Non Lucid',
+                      value: dataController.getNonLucidDreamsCount().toString(),
                     ),
                   ),
                   Expanded(
                     child: StatisticsCard(
-                      title: 'All Dreams',
-                      value: '10',
+                      title: 'Lucid',
+                      value: dataController.getLucidDreamsCount().toString(),
                     ),
                   ),
                 ],
               ),
               StatisticsCard2(
                 title1: 'Nightmares',
-                value1: '12',
+                value1: dataController.getAllNightmaresCount().toString(),
                 title2: 'sleep parlysis',
-                value2: '2',
+                value2: dataController.getAllSleepParalysisCount().toString(),
               ),
               StatisticsCard3(
                 title: 'Dreams by label',
-                child: Column(
-                  children: [Text('later')],
-                ),
+                child: Wrap(children: dataController.getDreamCountByLabel()),
               )
             ],
           ),

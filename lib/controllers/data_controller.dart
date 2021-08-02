@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:lucidy/controllers/hive_controller.dart';
 import 'package:lucidy/modals/dream.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:lucidy/utils/colors.dart';
 
 class DataController extends ChangeNotifier {
   String title;
@@ -118,23 +120,20 @@ class DataController extends ChangeNotifier {
   void addLabel(String label) {
     this.allLabels.add(label);
 
-    LabelController labelController = LabelController();
-    labelController.insertLabels(this.allLabels);
+    LabelController.insertLabels(this.allLabels);
     notifyListeners();
   }
 
   void updateLabels(List<String> labels) {
     this.allLabels = labels;
 
-    LabelController labelController = LabelController();
-    labelController.insertLabels(this.allLabels);
+    LabelController.insertLabels(this.allLabels);
     // notifyListeners();
   }
 
   List<String> getLabels() {
-    LabelController labelController = LabelController();
     List<String> labelsFromBox;
-    labelsFromBox = labelController.getLabels();
+    labelsFromBox = LabelController.getLabels();
     // notifyListeners();
 
     if (labelsFromBox == null)
@@ -160,6 +159,87 @@ class DataController extends ChangeNotifier {
     this.description = '';
     this.note = '';
     notifyListeners();
+  }
+
+  int getAllDreamsCount() {
+    return DreamController.box.length;
+  }
+
+  int getNonLucidDreamsCount() {
+    var count = 0;
+    var allDreams = DreamController.box.values;
+    allDreams.forEach((dream) {
+      if (!dream.dreamInfo.isLucid) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  int getLucidDreamsCount() {
+    var count = 0;
+    var allDreams = DreamController.box.values;
+    allDreams.forEach((dream) {
+      if (dream.dreamInfo.isLucid) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  int getAllNightmaresCount() {
+    var count = 0;
+    var allDreams = DreamController.box.values;
+    allDreams.forEach((dream) {
+      if (dream.dreamInfo.isNightMare) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  int getAllSleepParalysisCount() {
+    var count = 0;
+    var allDreams = DreamController.box.values;
+    allDreams.forEach((dream) {
+      if (dream.dreamInfo.isSleepParalysis) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  List<Widget> getDreamCountByLabel() {
+    List<Widget> chips = [];
+
+    List allLabels = LabelController.getLabels();
+
+    var allDreams = DreamController.box.values;
+
+    for (var label in allLabels) {
+      var count = 0;
+      for (var dream in allDreams) {
+        if (dream.dreamInfo.labels.contains(label)) {
+          count++;
+        }
+      }
+      if (count != 0)
+        chips.add(
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Chip(
+              backgroundColor: MyColors.accent.withOpacity(0.3),
+              label: Text(label.toString()),
+              avatar: CircleAvatar(
+                child: Text(count.toString()),
+                backgroundColor: MyColors.accentVarient,
+                foregroundColor: MyColors.white,
+              ),
+            ),
+          ),
+        );
+    }
+    return chips;
   }
 
   @override
