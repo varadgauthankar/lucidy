@@ -63,7 +63,6 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
             onPressed: () {
               if (dataController.validateForm(key: 'label')) {
                 dataController.addLabel(labelController.text);
-                // dataController.updateLabels(dataController.getLabels());
                 Navigator.pop(context);
               }
             }),

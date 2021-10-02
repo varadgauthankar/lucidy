@@ -69,8 +69,6 @@ class DataController extends ChangeNotifier {
   void setIsFavorite(bool value) {
     this.isFavorite = value;
     notifyListeners();
-    //! print
-    print('isFavorite from provider: $isFavorite');
   }
 
   void setIsArchive(bool value) {

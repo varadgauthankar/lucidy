@@ -5,10 +5,10 @@ class ThemeController extends ChangeNotifier {
   final String key = "AppTheme";
   Box box = Hive.box('settings');
 
-  ThemeMode themeMode = ThemeMode.light;
+  ThemeMode themeMode;
 
   ThemeController() {
-    themeMode = ThemeMode.light;
+    themeMode = ThemeMode.values[box.get(key, defaultValue: ThemeMode.light)];
   }
 
   toggleAppTheme(ThemeMode themeMode) {
