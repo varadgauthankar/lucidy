@@ -1,3 +1,4 @@
+import 'package:lucidy/constants/hive_boxes.dart';
 import 'package:lucidy/controllers/data_controller.dart';
 import 'package:lucidy/controllers/hive_controller.dart';
 import 'package:lucidy/controllers/settings_controller.dart';
@@ -14,9 +15,9 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(DreamAdapter());
   Hive.registerAdapter(DreamInfoAdapter());
-  await Hive.openBox<Dream>('dreams');
-  await Hive.openBox<String>('labels');
-  await Hive.openBox('settings');
+  await Hive.openBox<Dream>(kDreamsBox);
+  await Hive.openBox<String>(kLabelsBox);
+  await Hive.openBox(kSettingsBox);
   LabelController.initLabels();
   runApp(MyApp());
 }

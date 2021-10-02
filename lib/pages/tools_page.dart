@@ -254,7 +254,7 @@ class _ToolsPageState extends State<ToolsPage> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                    'Reminder to read morning dreams. an essensial way to make lucid dreams work',
+                    'Reminder to read morning dreams. an essential way to make lucid dreams work',
                     style: isThemeDark(context)
                         ? MyListTileStyle.dark
                         : MyListTileStyle.light,

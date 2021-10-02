@@ -1,9 +1,9 @@
+import 'package:lucidy/constants/hive_boxes.dart';
 import 'package:lucidy/modals/dream.dart';
 import 'package:hive/hive.dart';
 
 class DreamController {
-  static const boxName = 'dreams';
-  static Box<Dream> box = Hive.box(boxName);
+  static Box<Dream> box = Hive.box(kDreamsBox);
 
   static void insertDream(Dream dream) => box.add(dream);
 
@@ -13,9 +13,8 @@ class DreamController {
 }
 
 class LabelController {
-  static const boxName = 'labels';
   static const key = 'labels';
-  static Box<String> box = Hive.box<String>(boxName);
+  static Box<String> box = Hive.box<String>(kLabelsBox);
 
   static void addLabel(String label) => box.add(label);
 
