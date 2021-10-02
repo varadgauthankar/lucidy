@@ -11,6 +11,7 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,8 +25,9 @@ class AboutPage extends StatelessWidget {
           Tile(
             child: Column(
               children: [
-                FlutterLogo(
-                  size: 55,
+                CircleAvatar(
+                  radius: screenSize.height * .06,
+                  backgroundImage: AssetImage('assets/images/app_icon.png'),
                 ),
                 spacer(height: 6.0),
                 Text(
@@ -62,8 +64,9 @@ class AboutPage extends StatelessWidget {
           Tile(
             child: Column(
               children: [
-                FlutterLogo(
-                  size: 55,
+                CircleAvatar(
+                  radius: screenSize.height * .06,
+                  backgroundImage: AssetImage('assets/images/varad.png'),
                 ),
                 spacer(height: 6.0),
                 Text(
