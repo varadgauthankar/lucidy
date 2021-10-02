@@ -8,7 +8,8 @@ class ThemeController extends ChangeNotifier {
   ThemeMode themeMode;
 
   ThemeController() {
-    themeMode = ThemeMode.values[box.get(key, defaultValue: ThemeMode.light)];
+    themeMode =
+        ThemeMode.values[box.get(key, defaultValue: ThemeMode.light.index)];
   }
 
   toggleAppTheme(ThemeMode themeMode) {
