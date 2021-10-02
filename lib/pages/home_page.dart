@@ -6,6 +6,7 @@ import 'package:lucidy/pages/tools_page.dart';
 import 'package:lucidy/utils/colors.dart';
 import 'package:lucidy/utils/helpers.dart';
 import 'package:lucidy/utils/text_style.dart';
+import 'package:lucidy/widgets/drawer.dart';
 import 'package:lucidy/widgets/dream_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,49 +36,7 @@ class _HomePageState extends State<HomePage> {
           style: AppBarTitleStyle.lightDark,
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Text('Lucidy'),
-              decoration: BoxDecoration(color: MyColors.primary),
-            ),
-            ListTile(
-              leading: Icon(
-                EvaIcons.settings2Outline,
-                color: isThemeDark(context) ? MyColors.white : MyColors.black,
-              ),
-              title: Text('Settings'),
-              onTap: () => toPage(context, SettingsPage()),
-            ),
-            ListTile(
-              leading: Icon(
-                EvaIcons.optionsOutline,
-                color: isThemeDark(context) ? MyColors.white : MyColors.black,
-              ),
-              title: Text('Lucid dream tools'),
-              onTap: () => toPage(context, ToolsPage()),
-            ),
-            ListTile(
-              leading: Icon(
-                EvaIcons.pieChartOutline,
-                color: isThemeDark(context) ? MyColors.white : MyColors.black,
-              ),
-              title: Text('Statistics'),
-              onTap: () => toPage(context, StatisticsPage()),
-            ),
-            ListTile(
-              leading: Icon(
-                EvaIcons.infoOutline,
-                color: isThemeDark(context) ? MyColors.white : MyColors.black,
-              ),
-              title: Text('About app'),
-              onTap: () => toPage(context, AboutPage()),
-            ),
-          ],
-        ),
-      ),
+      drawer: MyDrawer(),
       body: Column(
         children: [
           Expanded(
