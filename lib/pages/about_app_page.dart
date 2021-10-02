@@ -1,9 +1,10 @@
-import 'package:lucidy/utils/colors.dart';
+import 'package:lucidy/constants/app_constants.dart';
 import 'package:lucidy/utils/helpers.dart';
 import 'package:lucidy/utils/text_style.dart';
 import 'package:lucidy/widgets/tile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key key}) : super(key: key);
@@ -28,12 +29,12 @@ class AboutPage extends StatelessWidget {
                 ),
                 spacer(height: 6.0),
                 Text(
-                  'App Name',
+                  kAppName,
                   style:
                       isThemeDark(context) ? TileTitle.dark : TileTitle.light,
                 ),
                 Text(
-                  'version: 1.0.1',
+                  'version: 1.0.0',
                   style: isThemeDark(context)
                       ? TileSubtitle.dark
                       : TileSubtitle.light,
@@ -42,24 +43,15 @@ class AboutPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      color: isThemeDark(context)
-                          ? MyColors.black
-                          : MyColors.white,
+                      onPressed: () => launch(kAppPlayStoreLink),
                       icon: Icon(EvaIcons.starOutline),
                     ),
                     IconButton(
-                      onPressed: () {},
-                      color: isThemeDark(context)
-                          ? MyColors.black
-                          : MyColors.white,
+                      onPressed: () => launch(kAppPlayStoreLink),
                       icon: Icon(EvaIcons.shoppingBagOutline),
                     ),
                     IconButton(
                       onPressed: () {},
-                      color: isThemeDark(context)
-                          ? MyColors.black
-                          : MyColors.white,
                       icon: Icon(EvaIcons.shareOutline),
                     )
                   ],
@@ -75,7 +67,7 @@ class AboutPage extends StatelessWidget {
                 ),
                 spacer(height: 6.0),
                 Text(
-                  'Varad Gauthankar',
+                  kDeveloperName,
                   style:
                       isThemeDark(context) ? TileTitle.dark : TileTitle.light,
                 ),
@@ -87,17 +79,11 @@ class AboutPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      color: isThemeDark(context)
-                          ? MyColors.black
-                          : MyColors.white,
+                      onPressed: () => launch(kGitHubUrl),
                       icon: Icon(EvaIcons.githubOutline),
                     ),
                     IconButton(
-                      onPressed: () {},
-                      color: isThemeDark(context)
-                          ? MyColors.black
-                          : MyColors.white,
+                      onPressed: () => launch(kTwitterUrl),
                       icon: Icon(EvaIcons.twitterOutline),
                     ),
                   ],
