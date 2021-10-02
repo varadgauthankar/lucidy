@@ -151,7 +151,9 @@ class StatisticsCard3 extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: StatisticsCardTitle.light,
+                style: isThemeDark(context)
+                    ? StatisticsCardTitle.dark
+                    : StatisticsCardTitle.light,
               ),
               spacer(height: isLabels ? 0 : 8),
               child,
