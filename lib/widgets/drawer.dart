@@ -17,7 +17,9 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            child: Text('Lucidy'),
+            child: Image.asset(
+              'assets/images/app_icon_fore.png',
+            ),
             decoration: BoxDecoration(color: MyColors.primary),
           ),
           ListTile(
