@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:lucidy/pages/dream_detail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:lucidy/widgets/no_dreams_widget.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   );
                 } else {
-                  return Text('EMPTY JUST LIKE MY LIFE');
+                  return NoDreams();
                 }
               },
             ),

@@ -148,7 +148,7 @@ class StatisticsCardTitle {
   );
 
   static const dark = TextStyle(
-    color: MyColors.black,
+    color: MyColors.white,
     fontWeight: FontWeight.w600,
     fontSize: 18,
   );
