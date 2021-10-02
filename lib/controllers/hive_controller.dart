@@ -15,9 +15,22 @@ class DreamController {
 class LabelController {
   static const boxName = 'labels';
   static const key = 'labels';
-  static Box<List<String>> box = Hive.box<List<String>>(boxName);
+  static Box<String> box = Hive.box<String>(boxName);
 
-  static void insertLabels(List<String> labels) => box.put(key, labels);
+  static void addLabel(String label) => box.add(label);
 
-  static List<String> getLabels() => box.get(key);
+  static List<String> getLabels() => box.values.toList();
+
+  static void initLabels() {
+    final defaultLabels = ['Fun', 'Scary', 'Love', 'Sad'];
+    if (getLabels().isEmpty || getLabels() == null) {
+      for (var label in defaultLabels) {
+        addLabel(label);
+      }
+    }
+  }
+
+  //TODO: implement model and use key for operation
+  static void removeLabel(String label) =>
+      box.deleteAt(getLabels().indexOf(label));
 }

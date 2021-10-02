@@ -63,12 +63,7 @@ class _SettingsState extends State<SettingsPage> {
         child: Chip(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           label: Text(label),
-          onDeleted: () {
-            setState(() {
-              data.getLabels().removeWhere((element) => label == element);
-              data.updateLabels(data.getLabels());
-            });
-          },
+          onDeleted: () => data.removeLabel(label),
         ),
       ));
     });

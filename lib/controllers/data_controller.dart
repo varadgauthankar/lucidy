@@ -14,7 +14,7 @@ class DataController extends ChangeNotifier {
   bool isLucidDream = false;
   bool isNightmare = false;
   bool isSleepParalysis = false;
-  List<String> allLabels = ['Fun', 'Scary', 'Love', 'Sad'];
+  List<String> allLabels = [];
   List<String> selectedLabels = [];
 
   bool isFavorite = false;
@@ -119,16 +119,14 @@ class DataController extends ChangeNotifier {
 
   void addLabel(String label) {
     this.allLabels.add(label);
-
-    LabelController.insertLabels(this.allLabels);
+    LabelController.addLabel(label);
     notifyListeners();
   }
 
-  void updateLabels(List<String> labels) {
-    this.allLabels = labels;
-
-    LabelController.insertLabels(this.allLabels);
-    // notifyListeners();
+  void removeLabel(String label) {
+    this.allLabels.removeAt(allLabels.indexOf(label));
+    LabelController.removeLabel(label);
+    notifyListeners();
   }
 
   List<String> getLabels() {
@@ -167,45 +165,53 @@ class DataController extends ChangeNotifier {
 
   int getNonLucidDreamsCount() {
     var count = 0;
-    var allDreams = DreamController.box.values;
-    allDreams.forEach((dream) {
-      if (!dream.dreamInfo.isLucid) {
-        count++;
-      }
-    });
+    var allNonLucidDreams = DreamController.box.values;
+    if (allNonLucidDreams.isNotEmpty) {
+      allNonLucidDreams.forEach((dream) {
+        if (!dream.dreamInfo.isLucid) {
+          count++;
+        }
+      });
+    }
     return count;
   }
 
   int getLucidDreamsCount() {
     var count = 0;
-    var allDreams = DreamController.box.values;
-    allDreams.forEach((dream) {
-      if (dream.dreamInfo.isLucid) {
-        count++;
-      }
-    });
+    var allLucidDreamsDreams = DreamController.box.values;
+    if (allLucidDreamsDreams.isNotEmpty) {
+      allLucidDreamsDreams.forEach((dream) {
+        if (dream.dreamInfo.isLucid) {
+          count++;
+        }
+      });
+    }
     return count;
   }
 
   int getAllNightmaresCount() {
     var count = 0;
-    var allDreams = DreamController.box.values;
-    allDreams.forEach((dream) {
-      if (dream.dreamInfo.isNightMare) {
-        count++;
-      }
-    });
+    var allNightmareDreams = DreamController.box.values;
+    if (allNightmareDreams.isNotEmpty) {
+      allNightmareDreams.forEach((dream) {
+        if (dream.dreamInfo.isNightMare) {
+          count++;
+        }
+      });
+    }
     return count;
   }
 
   int getAllSleepParalysisCount() {
     var count = 0;
-    var allDreams = DreamController.box.values;
-    allDreams.forEach((dream) {
-      if (dream.dreamInfo.isSleepParalysis) {
-        count++;
-      }
-    });
+    var allSleepParalysis = DreamController.box.values;
+    if (allSleepParalysis.isNotEmpty) {
+      allSleepParalysis.forEach((dream) {
+        if (dream.dreamInfo.isSleepParalysis) {
+          count++;
+        }
+      });
+    }
     return count;
   }
 
@@ -216,28 +222,35 @@ class DataController extends ChangeNotifier {
 
     var allDreams = DreamController.box.values;
 
-    for (var label in allLabels) {
-      var count = 0;
-      for (var dream in allDreams) {
-        if (dream.dreamInfo.labels.contains(label)) {
-          count++;
+    if (allLabels.isNotEmpty) {
+      for (var label in allLabels) {
+        var count = 0;
+        print(count);
+        if (allDreams.isNotEmpty) {
+          for (var dream in allDreams) {
+            if (dream.dreamInfo.labels.isNotEmpty) {
+              if (dream.dreamInfo.labels.contains(label)) {
+                count++;
+              }
+            }
+          }
         }
-      }
-      if (count != 0)
-        chips.add(
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Chip(
-              backgroundColor: MyColors.accent.withOpacity(0.3),
-              label: Text(label.toString()),
-              avatar: CircleAvatar(
-                child: Text(count.toString()),
-                backgroundColor: MyColors.accentVarient,
-                foregroundColor: MyColors.white,
+        if (count != 0)
+          chips.add(
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Chip(
+                backgroundColor: MyColors.accent.withOpacity(0.3),
+                label: Text(label.toString()),
+                avatar: CircleAvatar(
+                  child: Text(count.toString()),
+                  backgroundColor: MyColors.accentVarient,
+                  foregroundColor: MyColors.white,
+                ),
               ),
             ),
-          ),
-        );
+          );
+      }
     }
     return chips;
   }

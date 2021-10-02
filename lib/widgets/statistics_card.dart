@@ -125,10 +125,12 @@ class StatisticsCard2 extends StatelessWidget {
 class StatisticsCard3 extends StatelessWidget {
   final String title;
   final Widget child;
+  final bool isLabels;
   const StatisticsCard3({
     Key key,
     this.title,
     this.child,
+    this.isLabels,
   }) : super(key: key);
 
   @override
@@ -151,6 +153,7 @@ class StatisticsCard3 extends StatelessWidget {
                 title,
                 style: StatisticsCardTitle.light,
               ),
+              spacer(height: isLabels ? 0 : 8),
               child,
             ],
           ),

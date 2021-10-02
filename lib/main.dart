@@ -1,4 +1,5 @@
 import 'package:lucidy/controllers/data_controller.dart';
+import 'package:lucidy/controllers/hive_controller.dart';
 import 'package:lucidy/controllers/settings_controller.dart';
 import 'package:lucidy/controllers/theme_controller.dart';
 import 'package:lucidy/modals/dream.dart';
@@ -14,8 +15,9 @@ void main() async {
   Hive.registerAdapter(DreamAdapter());
   Hive.registerAdapter(DreamInfoAdapter());
   await Hive.openBox<Dream>('dreams');
-  await Hive.openBox<List<String>>('labels');
+  await Hive.openBox<String>('labels');
   await Hive.openBox('settings');
+  LabelController.initLabels();
   runApp(MyApp());
 }
 
@@ -36,14 +38,14 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               brightness: Brightness.light,
               primaryColor: MyColors.primary,
-              accentColor: MyColors.accent,
+              colorScheme: ColorScheme.light(secondary: MyColors.accent),
               primarySwatch: Colors.deepPurple,
               scaffoldBackgroundColor: MyColors.white,
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
               primaryColor: MyColors.primary,
-              accentColor: MyColors.accent,
+              colorScheme: ColorScheme.dark(secondary: MyColors.accent),
               primarySwatch: Colors.deepPurple,
               scaffoldBackgroundColor: MyColors.darkGrey,
             ),

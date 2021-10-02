@@ -53,12 +53,15 @@ class _StatisticsPageState extends State<StatisticsPage> {
               StatisticsCard2(
                 title1: 'Nightmares',
                 value1: dataController.getAllNightmaresCount().toString(),
-                title2: 'sleep parlysis',
+                title2: 'Sleep paralysis',
                 value2: dataController.getAllSleepParalysisCount().toString(),
               ),
               StatisticsCard3(
+                isLabels: dataController.getDreamCountByLabel().isNotEmpty,
                 title: 'Dreams by label',
-                child: Wrap(children: dataController.getDreamCountByLabel()),
+                child: dataController.getDreamCountByLabel().isNotEmpty
+                    ? Wrap(children: dataController.getDreamCountByLabel())
+                    : Text('NO DREAMS WITH LABELS YET!'),
               )
             ],
           ),
