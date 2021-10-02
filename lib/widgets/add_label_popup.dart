@@ -14,6 +14,15 @@ class AddLabelDialog extends StatefulWidget {
 class _AddLabelDialogState extends State<AddLabelDialog> {
   TextEditingController labelController;
 
+  bool isLabelExist(String label, {List<String> allLabels}) {
+    for (var l in allLabels) {
+      if (l.toLowerCase() == label.toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void initState() {
     labelController = TextEditingController();
@@ -48,8 +57,12 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
               validator: (val) {
                 if (val.isEmpty)
                   return 'Enter label title';
-                else
+                else if (isLabelExist(labelController.text,
+                    allLabels: dataController.getLabels()))
+                  return 'Label already exist';
+                else {
                   return null;
+                }
               },
             ),
           ),
@@ -61,7 +74,9 @@ class _AddLabelDialogState extends State<AddLabelDialog> {
         TextButton(
             child: Text('ADD'),
             onPressed: () {
-              if (dataController.validateForm(key: 'label')) {
+              if (dataController.validateForm(key: 'label') &&
+                  !isLabelExist(labelController.text,
+                      allLabels: dataController.getLabels())) {
                 dataController.addLabel(labelController.text);
                 Navigator.pop(context);
               }

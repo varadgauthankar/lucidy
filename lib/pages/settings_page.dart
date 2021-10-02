@@ -57,13 +57,16 @@ class _SettingsState extends State<SettingsPage> {
     DataController data = Provider.of<DataController>(context, listen: false);
 
     List<Widget> selection = [];
+
     data.getLabels().forEach((label) {
       selection.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: Chip(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           label: Text(label),
-          onDeleted: () => data.removeLabel(label),
+          onDeleted: () {
+            data.removeLabel(label);
+          },
         ),
       ));
     });
@@ -159,7 +162,7 @@ class _SettingsState extends State<SettingsPage> {
               children: [
                 spacer(height: 6.0),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: null,
                   child: Text('Backup',
                       style: isThemeDark(context)
                           ? MyButtonStyle.normalDark
@@ -169,7 +172,7 @@ class _SettingsState extends State<SettingsPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: null,
                   child: Text('Restore',
                       style: isThemeDark(context)
                           ? MyButtonStyle.normalDark
@@ -179,7 +182,7 @@ class _SettingsState extends State<SettingsPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: null,
                   child: Text(
                     'DELETE ALL DATA',
                     style: MyButtonStyle.danger,

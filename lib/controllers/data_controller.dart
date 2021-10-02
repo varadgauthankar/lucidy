@@ -122,20 +122,16 @@ class DataController extends ChangeNotifier {
   }
 
   void removeLabel(String label) {
-    this.allLabels.removeAt(allLabels.indexOf(label));
     LabelController.removeLabel(label);
+    this.allLabels.removeAt(allLabels.indexOf(label));
     notifyListeners();
   }
 
   List<String> getLabels() {
     List<String> labelsFromBox;
     labelsFromBox = LabelController.getLabels();
-    // notifyListeners();
-
-    if (labelsFromBox == null)
-      return this.allLabels;
-    else
-      return labelsFromBox;
+    this.allLabels = labelsFromBox;
+    return this.allLabels;
   }
 
   bool validateForm({String key}) {

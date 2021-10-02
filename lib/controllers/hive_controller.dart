@@ -30,6 +30,9 @@ class LabelController {
   }
 
   //TODO: implement model and use key for operation
-  static void removeLabel(String label) =>
-      box.deleteAt(getLabels().indexOf(label));
+  static void removeLabel(String label) {
+    print('==================');
+    print(getLabels().length);
+    box.deleteAt(getLabels().indexOf(label));
+  }
 }
