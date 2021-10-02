@@ -156,13 +156,13 @@ class StatisticsCardTitle {
 
 class StatisticsCardValue {
   static const light = TextStyle(
-    color: MyColors.black,
+    color: MyColors.accentVarient,
     fontWeight: FontWeight.w800,
     fontSize: 30,
   );
 
   static const dark = TextStyle(
-    color: MyColors.black,
+    color: MyColors.accent,
     fontWeight: FontWeight.w800,
     fontSize: 30,
   );
