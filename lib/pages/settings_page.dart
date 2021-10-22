@@ -79,6 +79,12 @@ class _SettingsState extends State<SettingsPage> {
     super.initState();
   }
 
+  _showComingSoonSnackBar() {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Coming soon!')));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +168,7 @@ class _SettingsState extends State<SettingsPage> {
               children: [
                 spacer(height: 6.0),
                 TextButton(
-                  onPressed: null,
+                  onPressed: _showComingSoonSnackBar,
                   child: Text('Backup',
                       style: isThemeDark(context)
                           ? MyButtonStyle.normalDark
@@ -172,7 +178,7 @@ class _SettingsState extends State<SettingsPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: null,
+                  onPressed: _showComingSoonSnackBar,
                   child: Text('Restore',
                       style: isThemeDark(context)
                           ? MyButtonStyle.normalDark
@@ -182,7 +188,7 @@ class _SettingsState extends State<SettingsPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: null,
+                  onPressed: _showComingSoonSnackBar,
                   child: Text(
                     'DELETE ALL DATA',
                     style: MyButtonStyle.danger,
