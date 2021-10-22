@@ -6,9 +6,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  int timeFrequency = 2;
-  List<TimeOfDay> times = []; //time to show notificaton
-  TimeOfDay time = TimeOfDay(hour: 0, minute: 0);
   int id = 10; // starting notification id's from 10
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -78,6 +75,10 @@ class NotificationService {
     TimeOfDay startTime,
     TimeOfDay endTime,
   }) async {
+    int timeFrequency = 2;
+    TimeOfDay time = TimeOfDay(hour: 0, minute: 0);
+    List<TimeOfDay> times = []; //time to show notifications
+
     // Enum to int
     switch (frequency) {
       case Frequency.one:
@@ -95,17 +96,40 @@ class NotificationService {
     }
 
     // generate list of times to show notification
-    for (time = startTime; time.hour != endTime.hour;) {
+    // -1 from end time so there won't be 2 notification at same time (before bed and frequent)
+    for (time = startTime; time.hour <= endTime.hour - 1;) {
       DateTime timeFromDateTime = DateTime(2021, 1, 1, time.hour, time.minute)
           .add(Duration(hours: timeFrequency));
 
-      if (timeFromDateTime.day == 1 && timeFrequency == 6) {
-        time = TimeOfDay(
-            hour: timeFromDateTime.hour, minute: timeFromDateTime.minute);
-        times.add(time);
-        startTime = time;
-      } else
-        break;
+      time = TimeOfDay(
+        hour: timeFromDateTime.hour,
+        minute: timeFromDateTime.minute,
+      );
+      times.add(time);
+      startTime = time;
+
+      // stupid way to break loop
+      if (timeFrequency == 6) {
+        if (time.hour == 19 ||
+            time.hour == 20 ||
+            time.hour == 21 ||
+            time.hour == 22 ||
+            time.hour == 23 ||
+            time.hour == 24) {
+          break;
+        }
+      } else if (timeFrequency == 4) {
+        if (time.hour == 21 ||
+            time.hour == 22 ||
+            time.hour == 23 ||
+            time.hour == 24) {
+          break;
+        }
+      } else if (timeFrequency == 2) {
+        if (time.hour == 23 || time.hour == 24) {
+          break;
+        }
+      }
     }
 
     AndroidNotificationDetails androidNotificationDetails =
@@ -126,20 +150,24 @@ class NotificationService {
 
     // iterate through times list and set notification for each time
     // Havent found a good way to do it yet:(
-    for (TimeOfDay time in times) {
-      flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        description,
-        notificationTime(time),
-        notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-        matchDateTimeComponents: DateTimeComponents.time,
-      );
-      print('notification set at $time');
-      id++;
+    if (times.isNotEmpty) {
+      for (TimeOfDay time in times) {
+        flutterLocalNotificationsPlugin.zonedSchedule(
+          id,
+          title,
+          description,
+          notificationTime(time),
+          notificationDetails,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+          androidAllowWhileIdle: true,
+          matchDateTimeComponents: DateTimeComponents.time,
+        );
+        print('notification set at $time');
+        id++;
+      }
+    } else {
+      print('No notifications set');
     }
   }
 
