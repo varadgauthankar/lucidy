@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.varadgauthankar.lucidy">
    <application
-        android:label="lucidy"
+        android:label="Lucidy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
