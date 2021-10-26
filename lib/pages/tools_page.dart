@@ -24,7 +24,7 @@ class _ToolsPageState extends State<ToolsPage> {
   List<String> chipsValue = ['1 hour', '2 hour', '4 hour', '6 hour'];
   List<String> selectedFrequency = [];
 
-  void handleRealityCheck(bool value) {
+  Future<void> handleRealityCheck(bool value) async {
     var settingsController =
         Provider.of<SettingsController>(context, listen: false);
     settingsController.setIsRealityCheck(value);
@@ -38,7 +38,7 @@ class _ToolsPageState extends State<ToolsPage> {
         frequency: settingsController.frequency,
       );
     } else {
-      notificationService.cancelScheduledNotification();
+      await notificationService.cancelScheduledNotification();
     }
   }
 
@@ -76,6 +76,27 @@ class _ToolsPageState extends State<ToolsPage> {
     }
   }
 
+  void _handleChipChange(Frequency frequency) async {
+    var settingsController =
+        Provider.of<SettingsController>(context, listen: false);
+
+    if (settingsController.isRealityCheck) {
+      settingsController.setFrequency(frequency);
+      await notificationService.cancelScheduledNotification();
+      if (settingsController.isRealityCheck) {
+        await notificationService.scheduleFrequentNotification(
+          title: 'Reality check',
+          description: settingsController.message,
+          startTime: settingsController.morningReminderTime,
+          endTime: settingsController.beforeBedTime,
+          frequency: settingsController.frequency,
+        );
+      }
+    } else {
+      settingsController.setFrequency(frequency);
+    }
+  }
+
   String getLabel(frequency) {
     if (frequency == Frequency.one)
       return '1 hour';
@@ -100,19 +121,7 @@ class _ToolsPageState extends State<ToolsPage> {
         child: ChoiceChip(
           label: Text(getLabel(item)), //Enum to string, First letter capital
           selected: settingsController.frequency == item,
-          onSelected: (_) {
-            settingsController.setFrequency(item);
-            if (settingsController.isRealityCheck) {
-              notificationService.cancelNotification(id: 10);
-              notificationService.scheduleFrequentNotification(
-                title: 'Reality check',
-                description: 'Are you dreaming?',
-                startTime: settingsController.morningReminderTime,
-                endTime: settingsController.beforeBedTime,
-                frequency: settingsController.frequency,
-              );
-            }
-          },
+          onSelected: (_) => _handleChipChange(item),
         ),
       ));
     });
@@ -147,7 +156,7 @@ class _ToolsPageState extends State<ToolsPage> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                    'Reality check throught out the day',
+                    'Reality check through out the day',
                     style: isThemeDark(context)
                         ? MyListTileStyle.dark
                         : MyListTileStyle.light,
@@ -166,10 +175,12 @@ class _ToolsPageState extends State<ToolsPage> {
                     IconButton(
                       padding: EdgeInsets.only(left: 6.0),
                       constraints: BoxConstraints(), //removes big ass padding
-                      onPressed: () => snackBar(
-                        context,
-                        content:
-                            'Recieve a reality check notification throughout the day',
+                      onPressed: () =>
+                          notificationService.getPendingNotification().then(
+                        (value) {
+                          print(value.length);
+                          for (final v in value) print('ID: ${v.id}');
+                        },
                       ),
                       icon: Icon(EvaIcons.questionMarkCircleOutline),
                     )
@@ -193,6 +204,19 @@ class _ToolsPageState extends State<ToolsPage> {
                   ),
                   onChanged: (text) {
                     settingsController.setMessage(text);
+                  },
+
+                  // i am just too lazy handle this lmao,
+                  // better let user restart notifications xD
+                  readOnly: settingsController.isRealityCheck,
+                  onTap: () {
+                    if (settingsController.isRealityCheck) {
+                      showMySnackBar(
+                        context,
+                        content:
+                            'Please turn off reality check first to edit message!',
+                      );
+                    }
                   },
                 ),
               ],

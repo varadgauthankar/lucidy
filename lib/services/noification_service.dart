@@ -6,8 +6,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  int id = 10; // starting notification id's from 10
-
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -68,13 +66,14 @@ class NotificationService {
   }
 
   // for reality check notification
-  Future scheduleFrequentNotification({
+  Future<void> scheduleFrequentNotification({
     String title,
     String description,
     Frequency frequency,
     TimeOfDay startTime,
     TimeOfDay endTime,
   }) async {
+    int id = 10; // starting notification id's from 10
     int timeFrequency = 2;
     TimeOfDay time = TimeOfDay(hour: 0, minute: 0);
     List<TimeOfDay> times = []; //time to show notifications
@@ -137,7 +136,7 @@ class NotificationService {
       'realityCheck',
       'Reality Check Notification',
       'Notification sent as reality check',
-      importance: Importance.defaultImportance,
+      importance: Importance.high,
       enableVibration: true,
     );
 
@@ -151,8 +150,9 @@ class NotificationService {
     // iterate through times list and set notification for each time
     // Havent found a good way to do it yet:(
     if (times.isNotEmpty) {
+      print('NOTIFICATIONS TO SET: ${times.length}');
       for (TimeOfDay time in times) {
-        flutterLocalNotificationsPlugin.zonedSchedule(
+        await flutterLocalNotificationsPlugin.zonedSchedule(
           id,
           title,
           description,
@@ -163,7 +163,7 @@ class NotificationService {
           androidAllowWhileIdle: true,
           matchDateTimeComponents: DateTimeComponents.time,
         );
-        print('notification set at $time');
+        print('notification set at $time with id: $id');
         id++;
       }
     } else {
@@ -181,18 +181,19 @@ class NotificationService {
   }
 
   // cancel notifications by id, used by reminders
-  void cancelNotification({int id}) {
-    flutterLocalNotificationsPlugin.cancel(id);
+  Future<void> cancelNotification({int id}) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
     print('$id canceled');
   }
 
   // delete reality check notification
   // reality check id starting from 10
   // there cannot be more than 24 notifs
-  // so ending loop at 34
-  void cancelScheduledNotification() {
-    for (int i = 10; i <= 34; i++) {
-      flutterLocalNotificationsPlugin.cancel(id);
+  // so ending loop at 44
+  Future<void> cancelScheduledNotification() async {
+    for (int i = 10; i <= 50; i++) {
+      await flutterLocalNotificationsPlugin.cancel(i);
+      print('$i canceled');
     }
   }
 

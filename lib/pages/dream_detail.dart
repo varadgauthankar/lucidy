@@ -63,7 +63,7 @@ class _DreamDetailState extends State<DreamDetail>
     });
     dataController.setIsFavorite(isFavorite);
 
-    snackBar(context,
+    showMySnackBar(context,
         content: isFavorite ? 'Marked as favorite' : 'un-marked as favorite');
 
     if (widget.dream != null)
@@ -77,7 +77,7 @@ class _DreamDetailState extends State<DreamDetail>
     });
     dataController.setIsArchive(isArchive);
 
-    snackBar(context,
+    showMySnackBar(context,
         content: isArchive ? 'Dream archived' : 'Dream unarchived');
 
     if (widget.dream != null)
