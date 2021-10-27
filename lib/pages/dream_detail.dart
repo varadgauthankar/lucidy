@@ -131,15 +131,17 @@ class _DreamDetailState extends State<DreamDetail>
                 ),
                 onPressed: toggleFavorite,
               ),
-              widget.isEdit
-                  ? IconButton(
-                      tooltip: 'Archive dream',
-                      icon: Icon(
-                        isArchive ? EvaIcons.archive : EvaIcons.archiveOutline,
-                      ),
-                      onPressed: toggleArchive,
-                    )
-                  : nothing(),
+
+              // TODO: impliment archive feature
+              // widget.isEdit
+              //     ? IconButton(
+              //         tooltip: 'Archive dream',
+              //         icon: Icon(
+              //           isArchive ? EvaIcons.archive : EvaIcons.archiveOutline,
+              //         ),
+              //         onPressed: toggleArchive,
+              //       )
+              //     : nothing(),
               widget.isEdit
                   ? IconButton(
                       tooltip: 'Delete dream',

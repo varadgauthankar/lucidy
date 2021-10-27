@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeController>(
         builder: (context, themeController, child) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            title: 'Lucidy',
             theme: ThemeData(
               brightness: Brightness.light,
               primaryColor: MyColors.primary,
