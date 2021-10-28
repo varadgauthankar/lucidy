@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:lucidy/constants/hive_boxes.dart';
 import 'package:lucidy/controllers/data_controller.dart';
 import 'package:lucidy/controllers/hive_controller.dart';
@@ -43,6 +44,11 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.light(secondary: MyColors.accent),
               primarySwatch: Colors.deepPurple,
               scaffoldBackgroundColor: MyColors.white,
+              appBarTheme: AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: MyColors.primary,
+                ),
+              ),
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
@@ -50,6 +56,11 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.dark(secondary: MyColors.accent),
               primarySwatch: Colors.deepPurple,
               scaffoldBackgroundColor: MyColors.darkGrey,
+              appBarTheme: AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: MyColors.darkGrey,
+                ),
+              ),
             ),
             themeMode: themeController.themeMode,
             home: HomePage(),

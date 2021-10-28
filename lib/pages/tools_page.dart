@@ -175,12 +175,10 @@ class _ToolsPageState extends State<ToolsPage> {
                     IconButton(
                       padding: EdgeInsets.only(left: 6.0),
                       constraints: BoxConstraints(), //removes big ass padding
-                      onPressed: () =>
-                          notificationService.getPendingNotification().then(
-                        (value) {
-                          print(value.length);
-                          for (final v in value) print('ID: ${v.id}');
-                        },
+                      onPressed: () => showMySnackBar(
+                        context,
+                        content:
+                            'Show reality check notifications through out the day',
                       ),
                       icon: Icon(EvaIcons.questionMarkCircleOutline),
                     )
