@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_local_notifications: ^6.0.0
+  flutter_native_splash: ^1.3.1
   flutter_native_timezone: ^2.0.0
   flutter_svg: ^0.22.0
   hive: ^2.0.4
@@ -27,6 +28,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.0
+
+flutter_native_splash:
+  web: false
+  image: assets/images/app_icon.png
+  color: "#ffffff"
+  color_dark: "#121212"
 
 flutter:
   uses-material-design: true
